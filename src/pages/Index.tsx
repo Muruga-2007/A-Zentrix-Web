@@ -51,7 +51,17 @@ const Index = () => {
 
       {/* ===== FLOATING EYE - scroll-linked ===== */}
       <motion.div
-        className="fixed top-0 h-full w-[65%] pointer-events-none z-0 hidden md:block"
+        className="fixed top-0 h-full w-[65%] pointer-events-none z-0 hidden md:block origin-center"
+        animate={{
+          scaleY: [1, 1, 0.02, 1, 1],
+        }}
+        transition={{
+          duration: 1.2,
+          repeat: Infinity,
+          repeatDelay: 8.8,
+          times: [0, 0.3, 0.5, 0.7, 1],
+          ease: "easeInOut",
+        }}
         style={{
           x: eyeX,
           opacity: eyeOpacity,
