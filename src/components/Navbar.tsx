@@ -18,7 +18,7 @@ const Navbar = () => {
         href="/"
         className="text-lg tracking-[0.3em] font-display font-medium text-foreground opacity-90 hover:opacity-100 transition-opacity"
       >
-        <ScrambleText text="A-ZENTRIX" />
+        A-ZENTRIX
       </a>
       <div className="hidden md:flex items-center gap-8 glass-panel px-10 py-3 rounded-full shadow-glass">
         {navLinks.map((link) => (
