@@ -9,7 +9,7 @@ interface ScrambleTextProps {
   scrambleDuration?: number;
 }
 
-const ScrambleText = ({ text, className, interval = 20000, scrambleDuration = 1500 }: ScrambleTextProps) => {
+const ScrambleText = ({ text, className, interval = 8000, scrambleDuration = 1500 }: ScrambleTextProps) => {
   const [display, setDisplay] = useState(text);
 
   const scramble = useCallback(() => {
