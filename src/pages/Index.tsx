@@ -231,10 +231,10 @@ const Index = () => {
         <div className="relative z-10" />
       </section>
 
-      {/* Black overlay that covers everything at end of scroll */}
+      {/* Sandal overlay that covers everything at end of scroll */}
       <motion.div
-        className="fixed inset-0 bg-black pointer-events-none z-50"
-        style={{ opacity: blackOverlayOpacity }}
+        className="fixed inset-0 pointer-events-none z-50"
+        style={{ opacity: blackOverlayOpacity, backgroundColor: "hsl(30, 40%, 82%)" }}
       />
 
       {/* Bottom blur orb */}
