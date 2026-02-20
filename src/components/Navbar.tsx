@@ -5,7 +5,7 @@ const navLinks = [
   { label: "Gallery", href: "#" },
   { label: "Artists", href: "#" },
   { label: "Exhibitions", href: "#" },
-  { label: "About", href: "/approach" },
+  { label: "About", href: "#approach" },
 ];
 
 const Navbar = () => {
