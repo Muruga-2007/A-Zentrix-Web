@@ -75,15 +75,16 @@ const Index = () => {
 
       {/* ===== FLOATING EYE - scroll-linked ===== */}
       <motion.div
-        className="fixed top-0 h-full w-[65%] pointer-events-none z-0 hidden md:block"
+        className="fixed top-0 h-full w-[65%] pointer-events-none z-0 hidden md:block will-change-transform"
         style={{
           x: eyeX,
           opacity: eyeOpacity,
           scale: eyeScale,
+          translateZ: 0,
         }}
       >
         <motion.div
-          className="w-full h-full relative"
+          className="w-full h-full relative will-change-[mask-image]"
           style={{
             maskImage: maskGradient,
             WebkitMaskImage: maskGradient,
@@ -222,7 +223,7 @@ const Index = () => {
 
       {/* Sandal overlay that covers everything at end of scroll */}
       <motion.div
-        className="fixed inset-0 pointer-events-none z-50"
+        className="fixed inset-0 pointer-events-none z-50 will-change-[opacity]"
         style={{ opacity: blackOverlayOpacity, backgroundColor: "hsl(25, 25%, 80%)" }}
       />
 
