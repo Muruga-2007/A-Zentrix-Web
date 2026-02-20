@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import eyeBg from "@/assets/eye-bg.jpg";
+import eyeClosed from "@/assets/eye-closed.png";
 
 const services = [
   {
@@ -32,10 +33,7 @@ const Index = () => {
 
   // Eye moves from right (35%) to left (-40%) as you scroll
   const eyeX = useTransform(scrollYProgress, [0, 1], ["55%", "-10%"]);
-  // Mask direction flips: starts fading left edge, ends fading right edge
-  const maskProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
-  // Opacity pulses slightly during transition
-  const eyeOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0.85, 0.4, 0.4, 0.65]);
+  // Scale subtly during transition
   // Scale subtly during transition
   const eyeScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.05, 1]);
 
@@ -52,56 +50,69 @@ const Index = () => {
       {/* ===== FLOATING EYE - scroll-linked ===== */}
       <motion.div
         className="fixed top-0 h-full w-[65%] pointer-events-none z-0 hidden md:block"
-        initial={{ clipPath: "inset(50% 0 50% 0)" }}
-        animate={{
-          clipPath: [
-            "inset(50% 0 50% 0)",
-            "inset(0% 0 0% 0)",
-            "inset(0% 0 0% 0)",
-            "inset(50% 0 50% 0)",
-          ],
-        }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          repeatDelay: 7.5,
-          times: [0, 0.2, 0.8, 1],
-          ease: "easeInOut",
-        }}
         style={{
           x: eyeX,
-          opacity: eyeOpacity,
           scale: eyeScale,
         }}
       >
+        {/* Open eye */}
         <motion.div
-          className="w-full h-full relative"
-          style={{
-            maskImage: useTransform(
-              maskProgress,
-              [0, 0.5, 1],
-              [
-                "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
-                "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
-                "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
-              ]
-            ),
-            WebkitMaskImage: useTransform(
-              maskProgress,
-              [0, 0.5, 1],
-              [
-                "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
-                "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
-                "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
-              ]
-            ),
+          className="absolute inset-0 w-full h-full"
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            repeatDelay: 7.5,
+            times: [0, 0.2, 0.8, 1],
+            ease: "easeInOut",
           }}
         >
-          <img
-            alt="Artistic eye sketch background"
-            className="w-full h-full object-cover object-center"
-            src={eyeBg}
-          />
+          <div
+            className="w-full h-full"
+            style={{
+              maskImage: "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
+            }}
+          >
+            <img
+              alt="Eye open"
+              className="w-full h-full object-cover object-center"
+              src={eyeBg}
+            />
+          </div>
+        </motion.div>
+
+        {/* Closed eye */}
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          initial={{ opacity: 0.65 }}
+          animate={{
+            opacity: [0.65, 0, 0, 0.65],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            repeatDelay: 7.5,
+            times: [0, 0.2, 0.8, 1],
+            ease: "easeInOut",
+          }}
+        >
+          <div
+            className="w-full h-full"
+            style={{
+              maskImage: "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
+            }}
+          >
+            <img
+              alt="Eye closed"
+              className="w-full h-full object-cover object-center"
+              src={eyeClosed}
+            />
+          </div>
         </motion.div>
         {/* Gradient overlay that also shifts */}
         <motion.div
