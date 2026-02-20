@@ -13,8 +13,12 @@ const ScrambleText = ({ text, className, interval = 8000 }: ScrambleTextProps) =
   const frameRef = useRef<number>(0);
 
   const scramble = useCallback(() => {
-    const duration = 1200;
+    const duration = 1400;
     const start = performance.now();
+    // Random resolve order for each character
+    const order = text.split("").map((_, i) => ({ i, r: Math.random() }));
+    order.sort((a, b) => a.r - b.r);
+    const resolveAt = order.map((o, idx) => ({ charIndex: o.i, threshold: (idx + 1) / text.length }));
 
     const tick = () => {
       const elapsed = performance.now() - start;
@@ -24,8 +28,8 @@ const ScrambleText = ({ text, className, interval = 8000 }: ScrambleTextProps) =
         .split("")
         .map((char, i) => {
           if (char === "-" || char === " ") return char;
-          const threshold = (i + 1) / text.length;
-          if (progress > threshold) return char;
+          const entry = resolveAt.find(e => e.charIndex === i)!;
+          if (progress > entry.threshold) return char;
           return CHARS[Math.floor(Math.random() * CHARS.length)];
         })
         .join("");
