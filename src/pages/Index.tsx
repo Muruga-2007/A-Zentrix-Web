@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import eyeBg from "@/assets/eye-bg.jpg";
@@ -23,33 +24,87 @@ const services = [
 ];
 
 const Index = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Eye moves from right (35%) to left (-40%) as you scroll
+  const eyeX = useTransform(scrollYProgress, [0, 1], ["35%", "-40%"]);
+  // Mask direction flips: starts fading left edge, ends fading right edge
+  const maskProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
+  // Opacity pulses slightly during transition
+  const eyeOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0.6, 0.3, 0.3, 0.9]);
+  // Scale subtly during transition
+  const eyeScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.05, 1]);
+
   return (
-    <div className="bg-background text-foreground font-body min-h-screen flex flex-col overflow-x-hidden relative transition-colors duration-500">
+    <div
+      ref={containerRef}
+      className="bg-background text-foreground font-body min-h-screen flex flex-col overflow-x-hidden relative transition-colors duration-500"
+    >
       {/* Grain overlay */}
       <div className="fixed inset-0 bg-grain pointer-events-none z-0" />
 
       <Navbar />
 
+      {/* ===== FLOATING EYE - scroll-linked ===== */}
+      <motion.div
+        className="fixed top-0 h-full w-[65%] pointer-events-none z-0 hidden md:block"
+        style={{
+          x: eyeX,
+          opacity: eyeOpacity,
+          scale: eyeScale,
+        }}
+      >
+        <motion.div
+          className="w-full h-full relative"
+          style={{
+            maskImage: useTransform(
+              maskProgress,
+              [0, 0.5, 1],
+              [
+                "linear-gradient(to right, transparent 0%, black 40%)",
+                "linear-gradient(to right, transparent 20%, black 40%, black 60%, transparent 80%)",
+                "linear-gradient(to left, transparent 0%, black 40%)",
+              ]
+            ),
+            WebkitMaskImage: useTransform(
+              maskProgress,
+              [0, 0.5, 1],
+              [
+                "linear-gradient(to right, transparent 0%, black 40%)",
+                "linear-gradient(to right, transparent 20%, black 40%, black 60%, transparent 80%)",
+                "linear-gradient(to left, transparent 0%, black 40%)",
+              ]
+            ),
+          }}
+        >
+          <img
+            alt="Artistic eye sketch background"
+            className="w-full h-full object-cover object-center"
+            src={eyeBg}
+          />
+        </motion.div>
+        {/* Gradient overlay that also shifts */}
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          style={{
+            background: useTransform(
+              scrollYProgress,
+              [0, 1],
+              [
+                "linear-gradient(to right, hsl(var(--background)) 0%, transparent 30%)",
+                "linear-gradient(to left, hsl(var(--background)) 0%, transparent 30%)",
+              ]
+            ),
+          }}
+        />
+      </motion.div>
+
       {/* ===== HERO SECTION ===== */}
       <section className="relative min-h-screen flex flex-col justify-center">
-        {/* Background image - right side */}
-        <div className="absolute top-0 right-0 h-full w-[65%] pointer-events-none z-0 hidden md:block opacity-60 mix-blend-multiply">
-          <div
-            className="w-full h-full relative"
-            style={{
-              maskImage: "linear-gradient(to right, transparent, black 40%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 40%)",
-            }}
-          >
-            <img
-              alt="Artistic eye sketch background"
-              className="w-full h-full object-cover object-center translate-x-[10%]"
-              src={eyeBg}
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent w-full h-full" />
-        </div>
-
         <div className="relative z-10 pt-24 pb-12 px-4 md:px-12 w-full max-w-7xl mx-auto">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="flex flex-col items-start gap-8 animate-fade-in relative z-20 max-w-2xl">
@@ -99,30 +154,6 @@ const Index = () => {
 
       {/* ===== APPROACH SECTION ===== */}
       <section id="approach" className="relative min-h-screen flex flex-col justify-center">
-        {/* Background image - left side */}
-        <motion.div
-          initial={{ opacity: 0, x: -80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="absolute top-0 left-0 h-full w-full md:w-[60%] pointer-events-none z-0 overflow-hidden"
-        >
-          <div
-            className="w-full h-full relative opacity-90"
-            style={{
-              maskImage: "linear-gradient(to right, black 60%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to right, black 60%, transparent 100%)",
-            }}
-          >
-            <img
-              alt="Artistic red eye illustration"
-              className="w-full h-full object-cover object-left"
-              src={eyeBg}
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent w-full h-full" />
-        </motion.div>
-
         <div className="relative z-10 py-24 px-4 md:px-12 w-full max-w-7xl mx-auto">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="hidden md:block" />
