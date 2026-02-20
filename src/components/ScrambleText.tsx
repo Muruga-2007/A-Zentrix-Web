@@ -13,7 +13,7 @@ const ScrambleText = ({ text, className, interval = 8000 }: ScrambleTextProps) =
   const frameRef = useRef<number>(0);
 
   const scramble = useCallback(() => {
-    const duration = 1400;
+    const duration = 3000;
     const start = performance.now();
     // Random resolve order for each character
     const order = text.split("").map((_, i) => ({ i, r: Math.random() }));
