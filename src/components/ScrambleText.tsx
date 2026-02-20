@@ -42,7 +42,11 @@ const ScrambleText = ({ text, className, interval = 8000, scrambleDuration = 150
     return () => clearInterval(id);
   }, [scramble, interval]);
 
-  return <span className={className}>{display}</span>;
+  return (
+    <span className={`${className} inline-block whitespace-nowrap`} style={{ minWidth: `${text.length}ch` }}>
+      {display}
+    </span>
+  );
 };
 
 export default ScrambleText;
