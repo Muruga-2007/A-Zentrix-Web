@@ -21,13 +21,13 @@ const Navbar = () => {
       </Link>
       <div className="hidden md:flex items-center gap-8 glass-panel px-10 py-3 rounded-full shadow-glass">
         {navLinks.map((link) => (
-          <Link
+          <a
             key={link.label}
-            to={link.href}
+            href={link.href}
             className="text-xs tracking-widest uppercase font-light text-muted-foreground hover:text-primary transition-colors duration-300"
           >
             {link.label}
-          </Link>
+          </a>
         ))}
       </div>
       <button
