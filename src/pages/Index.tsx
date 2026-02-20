@@ -3,7 +3,6 @@ import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import EyeRevealSection from "@/components/EyeRevealSection";
 import eyeBg from "@/assets/eye-bg.jpg";
 
 const services = [
@@ -217,9 +216,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* ===== EYE REVEAL SECTION ===== */}
-      <EyeRevealSection />
 
       {/* Bottom blur orb */}
       <div className="fixed bottom-0 left-0 w-96 h-96 rounded-full bg-gradient-to-tr from-muted/50 to-transparent opacity-30 blur-3xl -z-10 pointer-events-none" />
