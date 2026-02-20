@@ -3,6 +3,7 @@ import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SandalOverlayContent from "@/components/SandalOverlayContent";
 import eyeBg from "@/assets/eye-bg.jpg";
 
 const services = [
@@ -37,7 +38,8 @@ const Index = () => {
   const eyeX = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], ["55%", "-10%", "-10%", "17.5%"]);
   const eyeOpacity = useTransform(scrollYProgress, [0, 0.25, 0.4, 0.66, 0.82, 0.92, 1], [0.85, 0.4, 0.4, 0.65, 1, 1, 0]);
   const eyeScale = useTransform(scrollYProgress, [0, 0.33, 0.66, 0.85, 1], [1, 1.05, 1, 2.2, 3]);
-  const blackOverlayOpacity = useTransform(scrollYProgress, [0.88, 1], [0, 1]);
+  const blackOverlayOpacity = useTransform(scrollYProgress, [0.85, 0.95], [0, 1]);
+  const sandalContentOpacity = useTransform(scrollYProgress, [0.9, 1], [0, 1]);
   const heroTextOpacity = useTransform(scrollYProgress, [0, 0.33, 0.55], [1, 1, 0]);
   const approachTextOpacity = useTransform(scrollYProgress, [0.33, 0.66, 0.85], [1, 1, 0]);
 
@@ -225,6 +227,10 @@ const Index = () => {
       <motion.div
         className="fixed inset-0 pointer-events-none z-50 will-change-[opacity]"
         style={{ opacity: blackOverlayOpacity, backgroundColor: "hsl(25, 25%, 80%)" }}
+      />
+
+      {/* AI Services content on sandal overlay */}
+      <SandalOverlayContent opacity={sandalContentOpacity}
       />
 
       {/* Bottom blur orb */}
