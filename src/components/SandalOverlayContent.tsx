@@ -82,7 +82,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
           <span className="inline-block py-1.5 px-5 border border-foreground/20 rounded-full text-[10px] tracking-[0.25em] uppercase font-medium text-foreground/60 mb-6">
             AI-Powered Solutions
           </span>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-foreground/90 leading-[1.05] mb-6">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-medium tracking-tight text-foreground/90 leading-[1.05] mb-6">
             Intelligence,<br />Engineered.
           </h2>
           <p className="text-foreground/50 font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed">

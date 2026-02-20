@@ -113,10 +113,10 @@ const Index = () => {
                 <span className="inline-block py-1 px-3 border border-border rounded-full text-xs tracking-widest uppercase font-light text-muted-foreground">
                   Visual Intelligence
                 </span>
-                <h1 className="text-5xl md:text-6xl font-display font-medium tracking-tight text-foreground leading-[0.9]">
+                <h1 className="text-6xl md:text-8xl font-display font-medium tracking-tight text-foreground leading-[0.9]">
                   A-ZENTRIX
                 </h1>
-                <p className="text-muted-foreground font-light text-base md:text-lg tracking-wide leading-relaxed max-w-lg">
+                <p className="text-muted-foreground font-light text-lg md:text-xl tracking-wide leading-relaxed max-w-lg">
                   Bridging the gap between creative vision and corporate reality. We provide high-end visual solutions for the modern enterprise.
                 </p>
               </div>
@@ -139,11 +139,11 @@ const Index = () => {
 
               <div className="grid grid-cols-2 gap-12 pt-12 border-t border-border w-full max-w-md mt-4">
                 <div>
-                  <div className="text-2xl font-display font-semibold text-foreground mb-1">200+</div>
+                  <div className="text-3xl font-display font-semibold text-foreground mb-1">200+</div>
                   <div className="text-xs tracking-widest uppercase text-muted-foreground">Projects Delivered</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-display font-semibold text-foreground mb-1">98%</div>
+                  <div className="text-3xl font-display font-semibold text-foreground mb-1">98%</div>
                   <div className="text-xs tracking-widest uppercase text-muted-foreground">Client Satisfaction</div>
                 </div>
               </div>
@@ -170,7 +170,7 @@ const Index = () => {
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span className="text-[10px] tracking-[0.2em] uppercase font-medium text-primary">Strategic Focus</span>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight text-foreground leading-[1.1] uppercase">
+                <h2 className="text-5xl md:text-7xl font-display font-medium tracking-tight text-foreground leading-[1.1] uppercase">
                   Our Visionary<br />Approach
                 </h2>
                 <p className="text-muted-foreground font-light text-base md:text-lg tracking-wide leading-relaxed max-w-md">
