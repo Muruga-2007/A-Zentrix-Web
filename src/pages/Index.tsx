@@ -234,7 +234,7 @@ const Index = () => {
       {/* Sandal overlay that covers everything at end of scroll */}
       <motion.div
         className="fixed inset-0 pointer-events-none z-50"
-        style={{ opacity: blackOverlayOpacity, backgroundColor: "hsl(30, 40%, 82%)" }}
+        style={{ opacity: blackOverlayOpacity, backgroundColor: "hsl(25, 25%, 80%)" }}
       />
 
       {/* Bottom blur orb */}
