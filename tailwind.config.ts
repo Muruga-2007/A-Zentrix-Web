@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["'Gafiya'", "sans-serif"],
+        display: ["'Agraham'", "sans-serif"],
         body: ["'Inter'", "sans-serif"],
       },
       colors: {
