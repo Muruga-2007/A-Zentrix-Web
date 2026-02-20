@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import eyeBg from "@/assets/eye-bg.jpg";
@@ -25,10 +25,13 @@ const services = [
 
 const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: rawProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
+
+  // Smooth out the scroll progress with a spring
+  const scrollYProgress = useSpring(rawProgress, { stiffness: 80, damping: 30, mass: 0.5 });
 
   // Eye: right → left → center as you scroll through 3 sections
   const eyeX = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], ["55%", "-10%", "-10%", "17.5%"]);
