@@ -35,7 +35,7 @@ const Index = () => {
   // Mask direction flips: starts fading left edge, ends fading right edge
   const maskProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
   // Opacity pulses slightly during transition
-  const eyeOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0.85, 0.4, 0.4, 0.9]);
+  const eyeOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0.85, 0.4, 0.4, 0.55]);
   // Scale subtly during transition
   const eyeScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.05, 1]);
 
