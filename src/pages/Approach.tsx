@@ -56,7 +56,7 @@ const Approach = () => {
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                 <span className="text-[10px] tracking-[0.2em] uppercase font-medium text-primary">Strategic Focus</span>
               </div>
-              <h2 className="text-5xl md:text-7xl font-display font-medium tracking-tight text-foreground leading-[1.1] uppercase">
+              <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight text-foreground leading-[1.1] uppercase">
                 Our Visionary<br />Approach
               </h2>
               <p className="text-muted-foreground font-light text-base md:text-lg tracking-wide leading-relaxed max-w-md">
