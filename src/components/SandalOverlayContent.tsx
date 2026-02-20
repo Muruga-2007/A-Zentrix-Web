@@ -59,7 +59,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
       <div
         ref={scrollRef}
         onWheel={handleWheel}
-        className="pointer-events-auto w-full max-w-6xl mx-auto px-6 md:px-12 overflow-y-auto max-h-screen py-24 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]"
+        className="pointer-events-auto w-full max-w-6xl mx-auto px-6 md:px-12 overflow-y-auto max-h-screen py-24 [&::-webkit-scrollbar]:w-3 [&::-webkit-scrollbar-track]:bg-foreground/5 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-foreground/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-foreground/30"
       >
         <motion.div
           className="text-center mb-16"
