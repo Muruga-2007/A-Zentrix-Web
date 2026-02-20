@@ -31,7 +31,7 @@ const Index = () => {
   });
 
   // Eye moves from right (35%) to left (-40%) as you scroll
-  const eyeX = useTransform(scrollYProgress, [0, 1], ["55%", "-18%"]);
+  const eyeX = useTransform(scrollYProgress, [0, 1], ["55%", "-10%"]);
   // Mask direction flips: starts fading left edge, ends fading right edge
   const maskProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
   // Opacity pulses slightly during transition
