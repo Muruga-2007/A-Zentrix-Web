@@ -44,7 +44,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
       className="fixed inset-0 z-[51] pointer-events-none flex items-center justify-center will-change-[opacity]"
       style={{ opacity }}
     >
-      <div className="pointer-events-auto w-full max-w-6xl mx-auto px-6 md:px-12 overflow-y-auto max-h-screen py-24">
+      <div className="pointer-events-auto w-full max-w-6xl mx-auto px-6 md:px-12 overflow-y-auto max-h-screen py-24 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]">
         <div className="text-center mb-16">
           <span className="inline-block py-1.5 px-5 border border-foreground/20 rounded-full text-[10px] tracking-[0.25em] uppercase font-medium text-foreground/60 mb-6">
             AI-Powered Solutions
