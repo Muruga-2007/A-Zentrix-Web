@@ -30,14 +30,16 @@ const Index = () => {
     offset: ["start start", "end end"],
   });
 
-  // Eye moves from right (35%) to left (-40%) as you scroll
-  const eyeX = useTransform(scrollYProgress, [0, 1], ["55%", "-10%"]);
-  // Mask direction flips: starts fading left edge, ends fading right edge
-  const maskProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
-  // Opacity pulses slightly during transition
-  const eyeOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0.85, 0.4, 0.4, 0.65]);
-  // Scale subtly during transition
-  const eyeScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.05, 1]);
+  // Eye: right → left → center as you scroll through 3 sections
+  const eyeX = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], ["55%", "-10%", "-10%", "17.5%"]);
+  const maskProgress = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [0, 0.5, 0.5, 1]);
+  // Opacity: visible → dim → dim → fully visible
+  const eyeOpacity = useTransform(scrollYProgress, [0, 0.25, 0.4, 0.66, 0.85, 1], [0.85, 0.4, 0.4, 0.65, 0.8, 1]);
+  // Scale: normal → slight → slight → zoomed in
+  const eyeScale = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [1, 1.05, 1, 1.6]);
+  // Text fade out in third section
+  const heroTextOpacity = useTransform(scrollYProgress, [0, 0.33, 0.55], [1, 1, 0]);
+  const approachTextOpacity = useTransform(scrollYProgress, [0.33, 0.66, 0.85], [1, 1, 0]);
 
   return (
     <div
@@ -67,7 +69,7 @@ const Index = () => {
               [
                 "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
                 "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
-                "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
+                "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
               ]
             ),
             WebkitMaskImage: useTransform(
@@ -76,7 +78,7 @@ const Index = () => {
               [
                 "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
                 "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
-                "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
+                "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
               ]
             ),
           }}
@@ -93,10 +95,12 @@ const Index = () => {
           style={{
             background: useTransform(
               scrollYProgress,
-              [0, 1],
+              [0, 0.5, 0.85, 1],
               [
                 "linear-gradient(to right, hsl(var(--background)) 0%, transparent 30%)",
                 "linear-gradient(to left, hsl(var(--background)) 0%, transparent 30%)",
+                "linear-gradient(to left, transparent 0%, transparent 100%)",
+                "linear-gradient(to left, transparent 0%, transparent 100%)",
               ]
             ),
           }}
@@ -104,7 +108,7 @@ const Index = () => {
       </motion.div>
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-screen flex flex-col justify-center">
+      <motion.section className="relative min-h-screen flex flex-col justify-center" style={{ opacity: heroTextOpacity }}>
         <div className="relative z-10 pt-24 pb-12 px-4 md:px-12 w-full max-w-7xl mx-auto">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="flex flex-col items-start gap-8 animate-fade-in relative z-20 max-w-2xl">
@@ -150,10 +154,10 @@ const Index = () => {
             <div className="hidden md:block" />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ===== APPROACH SECTION ===== */}
-      <section id="approach" className="relative min-h-screen flex flex-col justify-center">
+      <motion.section id="approach" className="relative min-h-screen flex flex-col justify-center" style={{ opacity: approachTextOpacity }}>
         <div className="relative z-10 py-24 px-4 md:px-12 w-full max-w-7xl mx-auto">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="hidden md:block" />
@@ -215,6 +219,11 @@ const Index = () => {
             </motion.div>
           </div>
         </div>
+      </motion.section>
+
+      {/* ===== EYE ZOOM SECTION - empty page where eye centers & zooms ===== */}
+      <section className="relative min-h-screen flex flex-col justify-center items-center">
+        <div className="relative z-10" />
       </section>
 
       {/* Bottom blur orb */}
