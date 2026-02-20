@@ -1,5 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Sun } from "lucide-react";
+import ScrambleText from "@/components/ScrambleText";
 
 const navLinks = [
   { label: "Gallery", href: "#" },
@@ -13,12 +14,12 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
-      <Link
-        to="/"
+      <a
+        href="/"
         className="text-lg tracking-[0.3em] font-display font-medium text-foreground opacity-90 hover:opacity-100 transition-opacity"
       >
-        A-ZENTRIX
-      </Link>
+        <ScrambleText text="A-ZENTRIX" />
+      </a>
       <div className="hidden md:flex items-center gap-8 glass-panel px-10 py-3 rounded-full shadow-glass">
         {navLinks.map((link) => (
           <a

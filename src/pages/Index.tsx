@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SandalOverlayContent from "@/components/SandalOverlayContent";
+import ScrambleText from "@/components/ScrambleText";
 import eyeBg from "@/assets/eye-bg.jpg";
 
 const services = [
@@ -114,7 +115,7 @@ const Index = () => {
                   Visual Intelligence
                 </span>
                 <h1 className="text-6xl md:text-8xl font-display font-medium tracking-tight text-foreground leading-[0.9]">
-                  A-ZENTRIX
+                  <ScrambleText text="A-ZENTRIX" />
                 </h1>
                 <p className="text-muted-foreground font-light text-lg md:text-xl tracking-wide leading-relaxed max-w-lg">
                   Bridging the gap between creative vision and corporate reality. We provide high-end visual solutions for the modern enterprise.
