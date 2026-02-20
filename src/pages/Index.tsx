@@ -58,7 +58,6 @@ const Index = () => {
           scale: eyeScale,
         }}
       >
-        {/* Main eye image (static) */}
         <motion.div
           className="w-full h-full relative"
           style={{
@@ -88,58 +87,9 @@ const Index = () => {
             src={eyeBg}
           />
         </motion.div>
-
-        {/* Upper eyelid - duplicate of top portion, slides down to blink */}
-        <motion.div
-          className="absolute inset-0 w-full h-full z-10"
-          animate={{
-            y: ["0%", "0%", "20%", "0%", "0%"],
-          }}
-          transition={{
-            duration: 0.5,
-            repeat: Infinity,
-            repeatDelay: 9.5,
-            times: [0, 0.1, 0.5, 0.9, 1],
-            ease: "easeInOut",
-          }}
-          style={{
-            clipPath: "inset(0% 0% 55% 0%)",
-          }}
-        >
-          <img
-            alt=""
-            className="w-full h-full object-cover object-center"
-            src={eyeBg}
-          />
-        </motion.div>
-
-        {/* Lower eyelid - duplicate of bottom portion, slides up to blink */}
-        <motion.div
-          className="absolute inset-0 w-full h-full z-10"
-          animate={{
-            y: ["0%", "0%", "-20%", "0%", "0%"],
-          }}
-          transition={{
-            duration: 0.5,
-            repeat: Infinity,
-            repeatDelay: 9.5,
-            times: [0, 0.1, 0.5, 0.9, 1],
-            ease: "easeInOut",
-          }}
-          style={{
-            clipPath: "inset(55% 0% 0% 0%)",
-          }}
-        >
-          <img
-            alt=""
-            className="w-full h-full object-cover object-center"
-            src={eyeBg}
-          />
-        </motion.div>
-
         {/* Gradient overlay that also shifts */}
         <motion.div
-          className="absolute inset-0 w-full h-full z-20"
+          className="absolute inset-0 w-full h-full"
           style={{
             background: useTransform(
               scrollYProgress,
