@@ -1,4 +1,5 @@
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import eyeBg from "@/assets/eye-bg.jpg";
@@ -99,7 +100,13 @@ const Index = () => {
       {/* ===== APPROACH SECTION ===== */}
       <section id="approach" className="relative min-h-screen flex flex-col justify-center">
         {/* Background image - left side */}
-        <div className="absolute top-0 left-0 h-full w-full md:w-[60%] pointer-events-none z-0 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, x: -80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="absolute top-0 left-0 h-full w-full md:w-[60%] pointer-events-none z-0 overflow-hidden"
+        >
           <div
             className="w-full h-full relative opacity-90"
             style={{
@@ -114,12 +121,18 @@ const Index = () => {
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent w-full h-full" />
-        </div>
+        </motion.div>
 
         <div className="relative z-10 py-24 px-4 md:px-12 w-full max-w-7xl mx-auto">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="hidden md:block" />
-            <div className="flex flex-col items-start gap-8 animate-fade-in relative z-20">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.2 }}
+              className="flex flex-col items-start gap-8 relative z-20"
+            >
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 py-1 px-4 border border-primary/20 bg-primary/5 rounded-full">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -134,8 +147,15 @@ const Index = () => {
               </div>
 
               <div className="space-y-8 mt-4 w-full max-w-md">
-                {services.map((service) => (
-                  <div key={service.title} className="flex gap-6 group">
+                {services.map((service, i) => (
+                  <motion.div
+                    key={service.title}
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.15, ease: "easeOut" }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="flex gap-6 group"
+                  >
                     <div className="flex-shrink-0 w-12 h-12 rounded-full border border-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
                       <service.icon className="w-5 h-5" />
                     </div>
@@ -147,7 +167,7 @@ const Index = () => {
                         {service.description}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
@@ -161,7 +181,7 @@ const Index = () => {
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
