@@ -225,8 +225,8 @@ const Index = () => {
 
       {/* Sandal overlay that covers everything at end of scroll */}
       <motion.div
-        className="fixed inset-0 pointer-events-none z-50 will-change-[opacity] bg-[hsl(30,15%,92%)] dark:bg-background"
-        style={{ opacity: blackOverlayOpacity }}
+        className="fixed inset-0 pointer-events-none z-50 will-change-[opacity]"
+        style={{ opacity: blackOverlayOpacity, backgroundColor: "hsl(var(--overlay-bg))" }}
       />
 
       {/* AI Services content on sandal overlay */}
