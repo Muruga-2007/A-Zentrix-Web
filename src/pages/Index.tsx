@@ -65,18 +65,18 @@ const Index = () => {
               maskProgress,
               [0, 0.5, 1],
               [
-                "linear-gradient(to right, transparent 0%, black 40%)",
-                "linear-gradient(to right, transparent 20%, black 40%, black 60%, transparent 80%)",
-                "linear-gradient(to left, transparent 0%, black 40%)",
+                "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
+                "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
+                "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
               ]
             ),
             WebkitMaskImage: useTransform(
               maskProgress,
               [0, 0.5, 1],
               [
-                "linear-gradient(to right, transparent 0%, black 40%)",
-                "linear-gradient(to right, transparent 20%, black 40%, black 60%, transparent 80%)",
-                "linear-gradient(to left, transparent 0%, black 40%)",
+                "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
+                "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
+                "linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%)",
               ]
             ),
           }}
