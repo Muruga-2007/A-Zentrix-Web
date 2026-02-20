@@ -60,6 +60,22 @@ const Index = () => {
       >
         <motion.div
           className="w-full h-full relative"
+          animate={{
+            clipPath: [
+              "inset(0% 0% 0% 0%)",
+              "inset(0% 0% 0% 0%)",
+              "inset(45% 0% 45% 0%)",
+              "inset(0% 0% 0% 0%)",
+              "inset(0% 0% 0% 0%)",
+            ],
+          }}
+          transition={{
+            duration: 0.5,
+            repeat: Infinity,
+            repeatDelay: 9.5,
+            times: [0, 0.1, 0.5, 0.9, 1],
+            ease: "easeInOut",
+          }}
           style={{
             maskImage: useTransform(
               maskProgress,
@@ -87,33 +103,6 @@ const Index = () => {
             src={eyeBg}
           />
         </motion.div>
-        {/* Eyelid blink overlays */}
-        <motion.div
-          className="absolute inset-x-0 top-0 bg-background z-10"
-          animate={{
-            height: ["0%", "0%", "52%", "0%", "0%"],
-          }}
-          transition={{
-            duration: 0.6,
-            repeat: Infinity,
-            repeatDelay: 9.4,
-            times: [0, 0.2, 0.5, 0.8, 1],
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute inset-x-0 bottom-0 bg-background z-10"
-          animate={{
-            height: ["0%", "0%", "52%", "0%", "0%"],
-          }}
-          transition={{
-            duration: 0.6,
-            repeat: Infinity,
-            repeatDelay: 9.4,
-            times: [0, 0.2, 0.5, 0.8, 1],
-            ease: "easeInOut",
-          }}
-        />
         {/* Gradient overlay that also shifts */}
         <motion.div
           className="absolute inset-0 w-full h-full"
