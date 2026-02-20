@@ -56,10 +56,10 @@ const Index = () => {
           scaleY: [1, 1, 0.02, 1, 1],
         }}
         transition={{
-          duration: 1.2,
+          duration: 2,
           repeat: Infinity,
-          repeatDelay: 8.8,
-          times: [0, 0.3, 0.5, 0.7, 1],
+          repeatDelay: 8,
+          times: [0, 0.35, 0.5, 0.65, 1],
           ease: "easeInOut",
         }}
         style={{
