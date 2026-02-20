@@ -57,6 +57,16 @@ const Index = () => {
           opacity: eyeOpacity,
           scale: eyeScale,
         }}
+        animate={{
+          scaleY: [1, 1, 0.05, 1, 1],
+        }}
+        transition={{
+          duration: 0.4,
+          repeat: Infinity,
+          repeatDelay: 9.6,
+          times: [0, 0.3, 0.5, 0.7, 1],
+          ease: "easeInOut",
+        }}
       >
         <motion.div
           className="w-full h-full relative"
