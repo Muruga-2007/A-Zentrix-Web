@@ -42,7 +42,7 @@ const Index = () => {
           >
             <img
               alt="Artistic eye sketch background"
-              className="w-full h-full object-cover object-center translate-x-[10%]"
+              className="w-full h-full object-cover object-center translate-x-[10%] eye-blink"
               src={eyeBg}
             />
           </div>
@@ -109,7 +109,7 @@ const Index = () => {
           >
             <img
               alt="Artistic red eye illustration"
-              className="w-full h-full object-cover object-left"
+              className="w-full h-full object-cover object-left eye-blink"
               src={eyeBg}
             />
           </div>
