@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SandalOverlayContent from "@/components/SandalOverlayContent";
 import ScrambleText from "@/components/ScrambleText";
-import eyeBg from "@/assets/eye-bg.jpg";
+
 
 const services = [
 {
@@ -35,36 +35,11 @@ const Index = () => {
   // Smooth out the scroll progress with a spring
   const scrollYProgress = useSpring(rawProgress, { stiffness: 150, damping: 40, mass: 0.3 });
 
-  // Eye: right → left → center as you scroll through 3 sections
-  const eyeX = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], ["55%", "-10%", "-10%", "17.5%"]);
-  const eyeOpacity = useTransform(scrollYProgress, [0, 0.25, 0.4, 0.66, 0.82, 0.92, 1], [0.85, 0.4, 0.4, 0.65, 1, 1, 0]);
-  const eyeScale = useTransform(scrollYProgress, [0, 0.33, 0.66, 0.82, 0.95], [1, 1.05, 1, 1.8, 3.5]);
-  const blackOverlayOpacity = useTransform(scrollYProgress, [0.78, 0.92], [0, 1]);
-  const sandalContentOpacity = useTransform(scrollYProgress, [0.88, 0.98], [0, 1]);
+  // Transforms for section text opacity
   const heroTextOpacity = useTransform(scrollYProgress, [0, 0.33, 0.55], [1, 1, 0]);
   const approachTextOpacity = useTransform(scrollYProgress, [0.33, 0.66, 0.85], [1, 1, 0]);
-
-  // Mask & gradient transforms (hoisted out of JSX to avoid re-creation on render)
-  const maskGradient = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.66, 1],
-    [
-    "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
-    "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
-    "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
-    "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)"]
-
-  );
-  const bgGradient = useTransform(
-    scrollYProgress,
-    [0, 0.5, 0.85, 1],
-    [
-    "linear-gradient(to right, hsl(var(--background)) 0%, transparent 30%)",
-    "linear-gradient(to left, hsl(var(--background)) 0%, transparent 30%)",
-    "linear-gradient(to left, transparent 0%, transparent 100%)",
-    "linear-gradient(to left, transparent 0%, transparent 100%)"]
-
-  );
+  const blackOverlayOpacity = useTransform(scrollYProgress, [0.78, 0.92], [0, 1]);
+  const sandalContentOpacity = useTransform(scrollYProgress, [0.88, 0.98], [0, 1]);
 
   return (
     <div
@@ -76,34 +51,8 @@ const Index = () => {
 
       <Navbar />
 
-      {/* ===== FLOATING EYE - scroll-linked ===== */}
-      <motion.div
-        className="fixed top-0 h-full w-[65%] pointer-events-none z-0 hidden md:block will-change-transform"
-        style={{
-          x: eyeX,
-          opacity: eyeOpacity,
-          scale: eyeScale,
-          translateZ: 0
-        }}>
 
-        <motion.div
-          className="w-full h-full relative will-change-[mask-image]"
-          style={{
-            maskImage: maskGradient,
-            WebkitMaskImage: maskGradient
-          }}>
 
-          <img
-            alt="Artistic eye sketch background"
-            className="w-full h-full object-cover object-center"
-            src={eyeBg} />
-
-        </motion.div>
-        <motion.div
-          className="absolute inset-0 w-full h-full"
-          style={{ background: bgGradient }} />
-
-      </motion.div>
 
       {/* ===== HERO SECTION ===== */}
       <motion.section className="relative min-h-screen flex flex-col justify-center" style={{ opacity: heroTextOpacity }}>
