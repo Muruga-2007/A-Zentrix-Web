@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect, useState } from "react";
 import { motion, MotionValue, useMotionValueEvent } from "framer-motion";
-import { Brain, Cpu, BarChart3, Sparkles, Zap, Globe } from "lucide-react";
+import { Brain, Cpu, BarChart3, Sparkles, Zap, Globe, CircleDot, Fingerprint, ArrowRight } from "lucide-react";
 import RippleCard from "./RippleCard";
 
 const aiServices = [
@@ -112,6 +112,90 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
               </RippleCard>
             </motion.div>
           ))}
+        </div>
+
+        {/* ===== NARRATIVE SECTIONS ===== */}
+        <div className="mt-32 space-y-32">
+          {/* Section 01 */}
+          <motion.div
+            className="flex justify-start"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <div className="glass-panel p-12 md:p-20 max-w-2xl relative">
+              <span className="text-primary font-display text-6xl opacity-20 absolute -top-10 -left-6">01</span>
+              <div className="space-y-6">
+                <h2 className="text-4xl md:text-5xl font-display uppercase tracking-tight leading-none text-foreground">
+                  Digital<br />Architecture
+                </h2>
+                <div className="w-12 h-1 bg-primary" />
+                <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
+                  We don't just build platforms; we design digital ecosystems that breathe. Our strategy maps the invisible paths where users find meaning.
+                </p>
+                <div className="flex items-center gap-4 text-xs tracking-[0.3em] uppercase font-bold text-primary pt-4">
+                  <CircleDot className="w-5 h-5" />
+                  Precision Engineering
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Section 02 */}
+          <motion.div
+            className="flex justify-end"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <div className="glass-panel p-12 md:p-20 max-w-2xl relative">
+              <span className="text-primary font-display text-6xl opacity-20 absolute -top-10 -right-6">02</span>
+              <div className="space-y-6">
+                <h2 className="text-4xl md:text-5xl font-display uppercase tracking-tight leading-none text-foreground">
+                  The Soul of<br />Identity
+                </h2>
+                <div className="w-12 h-1 bg-primary" />
+                <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
+                  A brand is more than a mark—it is a frequency. We help brands discover their authentic resonance and amplify it across the noise.
+                </p>
+                <div className="flex items-center gap-4 text-xs tracking-[0.3em] uppercase font-bold text-primary pt-4">
+                  <Fingerprint className="w-5 h-5" />
+                  Genetic Branding
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Section 03 */}
+          <motion.div
+            className="flex justify-center text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <div className="glass-panel p-12 md:p-20 max-w-2xl relative border-none shadow-none">
+              <span className="text-primary font-display text-6xl opacity-20 block mb-6">03</span>
+              <div className="space-y-8">
+                <h2 className="text-4xl md:text-7xl font-display uppercase tracking-tight text-foreground">
+                  Intelligence<br />Visualized
+                </h2>
+                <p className="text-lg md:text-xl text-muted-foreground font-light max-w-lg mx-auto leading-relaxed">
+                  Complexity distilled into clarity. We transform abstract data into visceral visual experiences that inspire action.
+                </p>
+                <a
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="inline-flex items-center gap-4 px-12 py-5 bg-primary text-primary-foreground rounded-full hover:scale-105 transition-transform duration-500 group"
+                >
+                  <span className="tracking-[0.4em] uppercase text-xs font-bold">Start Evolution</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         <div className="text-center mt-16">

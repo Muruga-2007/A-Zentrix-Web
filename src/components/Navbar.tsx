@@ -5,7 +5,7 @@ import ScrambleText from "@/components/ScrambleText";
 const navLinks = [
   { label: "Gallery", href: "#" },
   { label: "Artists", href: "#" },
-  { label: "Narrative", href: "/narrative" },
+  { label: "Narrative", href: "#" },
   { label: "Exhibitions", href: "#" },
   { label: "About", href: "#approach" },
 ];
