@@ -1,6 +1,7 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import eyeBg from "@/assets/eye-bg.jpg";
@@ -173,6 +174,11 @@ const Narrative = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
+  const navigate = useNavigate();
+  const scrollUpCount = useRef(0);
+  const lastScrollTop = useRef(0);
+  const [showBackHint, setShowBackHint] = useState(false);
+
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     sectionRefs.current.forEach((el, i) => {
@@ -193,6 +199,33 @@ const Narrative = () => {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  // Detect scroll-up at top to go back to solution page
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const top = el.scrollTop;
+    if (top <= 0 && lastScrollTop.current <= 0) {
+      scrollUpCount.current += 1;
+      if (scrollUpCount.current >= 2) {
+        navigate("/");
+      } else {
+        setShowBackHint(true);
+        setTimeout(() => setShowBackHint(false), 2000);
+      }
+    } else if (top > 10) {
+      scrollUpCount.current = 0;
+      setShowBackHint(false);
+    }
+    lastScrollTop.current = top;
+  }, [navigate]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", handleScroll);
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
   const config = eyeConfigs[activeSection] || eyeConfigs.hero;
 
   return (
@@ -202,6 +235,21 @@ const Narrative = () => {
 
       <Navbar />
 
+      {/* Scroll-up hint */}
+      <AnimatePresence>
+        {showBackHint && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-20 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 bg-card border border-border rounded-full shadow-lg"
+          >
+            <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium">
+              ↑ Scroll up again to go back
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Floating Eye — CSS-transitioned based on active section */}
       <motion.div
         className="fixed pointer-events-none z-[5] will-change-transform hidden md:block"
