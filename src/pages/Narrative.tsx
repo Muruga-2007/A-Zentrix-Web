@@ -211,7 +211,7 @@ const Narrative = () => {
       if (e.deltaY < 0 && el.scrollTop <= 5) {
         upCount += 1;
         if (upCount >= 3) {
-          navigate("/");
+          window.location.href = "/#ai-solutions";
           return;
         }
         setShowBackHint(true);
@@ -236,7 +236,7 @@ const Narrative = () => {
       if (deltaY > 60 && el.scrollTop <= 5) {
         upCount += 1;
         if (upCount >= 2) {
-          navigate("/");
+          window.location.href = "/#ai-solutions";
           return;
         }
         setShowBackHint(true);
@@ -274,17 +274,17 @@ const Narrative = () => {
 
       {/* Back to solutions - always visible at hero */}
       {activeSection === "hero" && (
-        <motion.button
+        <motion.a
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          onClick={() => navigate("/")}
+          href="/#ai-solutions"
           className="fixed top-20 left-1/2 -translate-x-1/2 z-[70] flex items-center gap-2 px-6 py-3 bg-card/80 backdrop-blur-sm border border-border rounded-full shadow-lg cursor-pointer hover:bg-accent transition-colors"
         >
           <ArrowUp className="w-3.5 h-3.5 text-muted-foreground" />
           <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground font-medium">
             Back to Solutions
           </span>
-        </motion.button>
+        </motion.a>
       )}
 
       {/* Scroll-up hint */}
