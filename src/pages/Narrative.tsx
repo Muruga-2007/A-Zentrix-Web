@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
+import { ArrowRight, ArrowUp, Fingerprint, Eye, CircleDot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -199,7 +199,7 @@ const Narrative = () => {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  // Detect wheel-up at top to go back to solution page
+  // Detect wheel-up at top to go back to solution page (window-level to bypass snap)
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -208,7 +208,7 @@ const Narrative = () => {
     let resetTimer: ReturnType<typeof setTimeout> | null = null;
 
     const handleWheel = (e: WheelEvent) => {
-      if (e.deltaY < 0 && el.scrollTop <= 0) {
+      if (e.deltaY < 0 && el.scrollTop <= 5) {
         upCount += 1;
         if (upCount >= 3) {
           navigate("/");
@@ -219,7 +219,7 @@ const Narrative = () => {
         resetTimer = setTimeout(() => {
           upCount = 0;
           setShowBackHint(false);
-        }, 1500);
+        }, 2000);
       } else if (e.deltaY > 0) {
         upCount = 0;
         setShowBackHint(false);
@@ -233,7 +233,7 @@ const Narrative = () => {
     };
     const handleTouchEnd = (e: TouchEvent) => {
       const deltaY = e.changedTouches[0].clientY - touchStartY;
-      if (deltaY > 60 && el.scrollTop <= 0) {
+      if (deltaY > 60 && el.scrollTop <= 5) {
         upCount += 1;
         if (upCount >= 2) {
           navigate("/");
@@ -244,20 +244,21 @@ const Narrative = () => {
         resetTimer = setTimeout(() => {
           upCount = 0;
           setShowBackHint(false);
-        }, 1500);
+        }, 2000);
       } else if (deltaY < -20) {
         upCount = 0;
         setShowBackHint(false);
       }
     };
 
-    el.addEventListener("wheel", handleWheel, { passive: true });
-    el.addEventListener("touchstart", handleTouchStart, { passive: true });
-    el.addEventListener("touchend", handleTouchEnd, { passive: true });
+    // Listen on window to avoid snap-scroll consuming the events
+    window.addEventListener("wheel", handleWheel, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
     return () => {
-      el.removeEventListener("wheel", handleWheel);
-      el.removeEventListener("touchstart", handleTouchStart);
-      el.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
       if (resetTimer) clearTimeout(resetTimer);
     };
   }, [navigate]);
@@ -271,6 +272,21 @@ const Narrative = () => {
 
       <Navbar />
 
+      {/* Back to solutions - always visible at hero */}
+      {activeSection === "hero" && (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          onClick={() => navigate("/")}
+          className="fixed top-20 left-1/2 -translate-x-1/2 z-[70] flex items-center gap-2 px-6 py-3 bg-card/80 backdrop-blur-sm border border-border rounded-full shadow-lg cursor-pointer hover:bg-accent transition-colors"
+        >
+          <ArrowUp className="w-3.5 h-3.5 text-muted-foreground" />
+          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground font-medium">
+            Back to Solutions
+          </span>
+        </motion.button>
+      )}
+
       {/* Scroll-up hint */}
       <AnimatePresence>
         {showBackHint && (
@@ -278,10 +294,10 @@ const Narrative = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 bg-card border border-border rounded-full shadow-lg"
+            className="fixed top-32 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 bg-primary text-primary-foreground rounded-full shadow-lg"
           >
-            <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium">
-              ↑ Scroll up again to go back
+            <span className="text-xs tracking-[0.2em] uppercase font-medium">
+              ↑ Keep scrolling up to go back
             </span>
           </motion.div>
         )}
