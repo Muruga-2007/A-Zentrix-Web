@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -199,32 +199,68 @@ const Narrative = () => {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  // Detect scroll-up at top to go back to solution page
-  const handleScroll = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const top = el.scrollTop;
-    if (top <= 0 && lastScrollTop.current <= 0) {
-      scrollUpCount.current += 1;
-      if (scrollUpCount.current >= 2) {
-        navigate("/");
-      } else {
-        setShowBackHint(true);
-        setTimeout(() => setShowBackHint(false), 2000);
-      }
-    } else if (top > 10) {
-      scrollUpCount.current = 0;
-      setShowBackHint(false);
-    }
-    lastScrollTop.current = top;
-  }, [navigate]);
-
+  // Detect wheel-up at top to go back to solution page
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    el.addEventListener("scroll", handleScroll);
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+
+    let upCount = 0;
+    let resetTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY < 0 && el.scrollTop <= 0) {
+        upCount += 1;
+        if (upCount >= 3) {
+          navigate("/");
+          return;
+        }
+        setShowBackHint(true);
+        if (resetTimer) clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          upCount = 0;
+          setShowBackHint(false);
+        }, 1500);
+      } else if (e.deltaY > 0) {
+        upCount = 0;
+        setShowBackHint(false);
+        if (resetTimer) clearTimeout(resetTimer);
+      }
+    };
+
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+    const handleTouchEnd = (e: TouchEvent) => {
+      const deltaY = e.changedTouches[0].clientY - touchStartY;
+      if (deltaY > 60 && el.scrollTop <= 0) {
+        upCount += 1;
+        if (upCount >= 2) {
+          navigate("/");
+          return;
+        }
+        setShowBackHint(true);
+        if (resetTimer) clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          upCount = 0;
+          setShowBackHint(false);
+        }, 1500);
+      } else if (deltaY < -20) {
+        upCount = 0;
+        setShowBackHint(false);
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: true });
+    el.addEventListener("touchstart", handleTouchStart, { passive: true });
+    el.addEventListener("touchend", handleTouchEnd, { passive: true });
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchend", handleTouchEnd);
+      if (resetTimer) clearTimeout(resetTimer);
+    };
+  }, [navigate]);
 
   const config = eyeConfigs[activeSection] || eyeConfigs.hero;
 
