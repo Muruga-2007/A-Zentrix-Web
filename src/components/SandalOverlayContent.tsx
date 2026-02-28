@@ -113,7 +113,11 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
           opacity: eyeConfig.opacity,
           rotate: eyeConfig.rotate,
         }}
-        transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
+        transition={{
+          duration: 1.2,
+          ease: [0.23, 1, 0.32, 1],
+          opacity: { duration: activeNarrative >= 0 ? 1.8 : 0.6 },
+        }}
       >
         <img
           alt=""
