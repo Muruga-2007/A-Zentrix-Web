@@ -202,6 +202,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
               initial={{ opacity: 0, x: section.align === "left" ? -60 : section.align === "right" ? 60 : 0, y: section.align === "center" ? 50 : 0 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               onViewportEnter={() => setActiveNarrative(i)}
+              onViewportLeave={() => setActiveNarrative((prev) => (prev === i ? -1 : prev))}
               transition={{ duration: 0.9, ease: "easeOut" }}
               viewport={{ once: false, amount: 0.4 }}
             >
