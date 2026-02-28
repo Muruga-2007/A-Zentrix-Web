@@ -176,7 +176,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
 
         {/* ===== NARRATIVE DIVIDER ===== */}
         <motion.div
-          className="text-center my-32"
+          className="text-center my-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
