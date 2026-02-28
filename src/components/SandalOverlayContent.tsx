@@ -1,4 +1,4 @@
-import { useRef, useCallback, useState, useEffect } from "react";
+import { useRef, useCallback, useState } from "react";
 import { motion, MotionValue, useMotionValueEvent } from "framer-motion";
 import { Brain, Cpu, BarChart3, Sparkles, Zap, Globe, ArrowRight, CircleDot, Fingerprint } from "lucide-react";
 import RippleCard from "./RippleCard";
@@ -75,29 +75,15 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeNarrative, setActiveNarrative] = useState(-1);
-  const [parallaxY, setParallaxY] = useState(0);
 
   useMotionValueEvent(opacity, "change", (latest) => {
     const nowVisible = latest > 0.05;
     if (nowVisible && !isVisible) {
       scrollRef.current?.scrollTo({ top: 0 });
       setActiveNarrative(-1);
-      setParallaxY(0);
     }
     setIsVisible(nowVisible);
   });
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      const scrollTop = el.scrollTop;
-      // Subtle parallax: eye moves at 15% of scroll speed
-      setParallaxY(scrollTop * -0.15);
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
-  }, []);
 
   const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
     const el = scrollRef.current;
@@ -127,7 +113,6 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
           opacity: eyeConfig.opacity,
           rotate: eyeConfig.rotate,
         }}
-        style={{ translateY: parallaxY }}
         transition={{
           duration: 1.2,
           ease: [0.23, 1, 0.32, 1],
