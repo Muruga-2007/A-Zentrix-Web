@@ -182,7 +182,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.5 }}
         >
-          <div className="w-px h-24 bg-gradient-to-b from-transparent via-primary/40 to-transparent mx-auto mb-8" />
+          <div className="w-px h-24 bg-gradient-to-b from-transparent via-muted-foreground/20 to-transparent mx-auto mb-8" />
           <span className="inline-block py-2 px-6 border border-primary/30 rounded-full">
             <span className="text-[10px] tracking-[0.5em] uppercase text-primary font-bold">
               The Visionary Perspective
