@@ -294,7 +294,7 @@ const Index = () => {
 
         {/* Circular reveal from eye pupil — solutions content emerges from inside the eye */}
         <motion.div
-          className="fixed inset-0 z-[2] overflow-y-auto"
+          className="fixed inset-0 z-[2] overflow-hidden"
           style={{
             clipPath: revealClipPath,
             backgroundColor: "hsl(var(--overlay-bg))",
