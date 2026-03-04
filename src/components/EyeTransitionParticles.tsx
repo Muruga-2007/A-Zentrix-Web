@@ -9,28 +9,37 @@ interface Particle {
   delay: number;
   duration: number;
   opacity: number;
+  color: string;
 }
 
 interface EyeTransitionParticlesProps {
   scrollProgress: MotionValue<number>;
 }
 
-const EyeTransitionParticles = ({ scrollProgress }: EyeTransitionParticlesProps) => {
-  const particleOpacity = useTransform(scrollProgress, [0.78, 0.85, 0.95, 1], [0, 1, 1, 0]);
-  const rayOpacity = useTransform(scrollProgress, [0.80, 0.88, 0.96, 1], [0, 0.6, 0.8, 0]);
-  const rayScale = useTransform(scrollProgress, [0.80, 0.95], [0.5, 2.5]);
-  const rayRotate = useTransform(scrollProgress, [0.80, 1], [0, 45]);
+const PARTICLE_COLORS = [
+  "hsl(0 53% 43%)",      // primary red
+  "hsl(30 80% 55%)",     // warm amber
+  "hsl(45 90% 65%)",     // gold
+  "hsl(15 70% 50%)",     // burnt orange
+  "hsl(0 0% 85%)",       // soft white
+];
 
-  // Generate particles radiating from the pupil center
+const EyeTransitionParticles = ({ scrollProgress }: EyeTransitionParticlesProps) => {
+  const particleOpacity = useTransform(scrollProgress, [0.76, 0.83, 0.95, 1], [0, 1, 1, 0]);
+  const rayOpacity = useTransform(scrollProgress, [0.78, 0.86, 0.96, 1], [0, 0.8, 1, 0]);
+  const rayScale = useTransform(scrollProgress, [0.78, 0.95], [0.3, 3]);
+  const rayRotate = useTransform(scrollProgress, [0.78, 1], [0, 60]);
+
   const particles: Particle[] = useMemo(() => {
-    return Array.from({ length: 24 }, (_, i) => ({
+    return Array.from({ length: 40 }, (_, i) => ({
       id: i,
-      angle: (i / 24) * 360 + Math.random() * 15,
-      distance: 80 + Math.random() * 300,
-      size: 1 + Math.random() * 3,
-      delay: Math.random() * 2,
-      duration: 2 + Math.random() * 3,
-      opacity: 0.3 + Math.random() * 0.7,
+      angle: (i / 40) * 360 + Math.random() * 9,
+      distance: 60 + Math.random() * 350,
+      size: 1.5 + Math.random() * 4,
+      delay: Math.random() * 1.8,
+      duration: 1.8 + Math.random() * 2.5,
+      opacity: 0.4 + Math.random() * 0.6,
+      color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)],
     }));
   }, []);
 
@@ -39,7 +48,7 @@ const EyeTransitionParticles = ({ scrollProgress }: EyeTransitionParticlesProps)
       className="fixed inset-0 pointer-events-none z-[49]"
       style={{ opacity: particleOpacity }}
     >
-      {/* Radial light rays from pupil center */}
+      {/* Primary radial light rays */}
       <motion.div
         className="absolute w-full h-full"
         style={{
@@ -49,27 +58,28 @@ const EyeTransitionParticles = ({ scrollProgress }: EyeTransitionParticlesProps)
           transformOrigin: "38% 32%",
         }}
       >
-        {[0, 30, 60, 90, 120, 150].map((angle) => (
+        {Array.from({ length: 12 }, (_, i) => i * 30).map((angle) => (
           <div
             key={angle}
             className="absolute left-[38%] top-[32%] origin-left"
             style={{
               transform: `rotate(${angle}deg)`,
-              width: "60vw",
-              height: "1px",
-              background: `linear-gradient(90deg, hsl(var(--primary) / 0.6), hsl(var(--primary) / 0.1) 40%, transparent 80%)`,
+              width: "70vw",
+              height: "2px",
+              background: `linear-gradient(90deg, hsl(30 80% 55% / 0.7), hsl(0 53% 43% / 0.3) 35%, transparent 75%)`,
             }}
           />
         ))}
-        {[15, 45, 75, 105, 135, 165].map((angle) => (
+        {/* Secondary thinner rays offset */}
+        {Array.from({ length: 12 }, (_, i) => i * 30 + 15).map((angle) => (
           <div
             key={`s-${angle}`}
             className="absolute left-[38%] top-[32%] origin-left"
             style={{
               transform: `rotate(${angle}deg)`,
-              width: "40vw",
+              width: "50vw",
               height: "1px",
-              background: `linear-gradient(90deg, hsl(var(--foreground) / 0.3), transparent 60%)`,
+              background: `linear-gradient(90deg, hsl(45 90% 65% / 0.5), hsl(0 0% 85% / 0.15) 50%, transparent 80%)`,
             }}
           />
         ))}
@@ -84,18 +94,20 @@ const EyeTransitionParticles = ({ scrollProgress }: EyeTransitionParticlesProps)
         return (
           <motion.div
             key={p.id}
-            className="absolute rounded-full bg-primary"
+            className="absolute rounded-full"
             style={{
               width: p.size,
               height: p.size,
               left: "38%",
               top: "32%",
+              backgroundColor: p.color,
+              boxShadow: `0 0 ${p.size * 3}px ${p.color}`,
             }}
             animate={{
               x: [0, x * 0.3, x],
               y: [0, y * 0.3, y],
               opacity: [0, p.opacity, 0],
-              scale: [0, 1.5, 0],
+              scale: [0, 1.8, 0],
             }}
             transition={{
               duration: p.duration,
@@ -107,17 +119,17 @@ const EyeTransitionParticles = ({ scrollProgress }: EyeTransitionParticlesProps)
         );
       })}
 
-      {/* Central glow pulse */}
+      {/* Central glow pulse — warm amber */}
       <motion.div
         className="absolute rounded-full"
         style={{
           left: "38%",
           top: "32%",
-          width: 120,
-          height: 120,
-          x: -60,
-          y: -60,
-          background: `radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, hsl(var(--primary) / 0.1) 40%, transparent 70%)`,
+          width: 160,
+          height: 160,
+          x: -80,
+          y: -80,
+          background: `radial-gradient(circle, hsl(30 80% 55% / 0.5) 0%, hsl(0 53% 43% / 0.2) 35%, transparent 70%)`,
           opacity: rayOpacity,
           scale: rayScale,
         }}
