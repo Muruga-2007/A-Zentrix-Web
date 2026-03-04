@@ -292,62 +292,65 @@ const Index = () => {
           <div className="relative z-10" />
         </section>
 
-        {/* Circular reveal from eye pupil — solutions emerge from inside the eye */}
+        {/* Circular reveal from eye pupil — solutions content emerges from inside the eye */}
         <motion.div
-          className="fixed inset-0 pointer-events-none z-[2]"
+          className="fixed inset-0 z-[2] overflow-y-auto"
           style={{
             clipPath: revealClipPath,
             backgroundColor: "hsl(var(--overlay-bg))",
+            pointerEvents: revealRadius.get() > 100 ? "auto" : "none",
           }}
-        />
+        >
+          <div className="min-h-screen flex flex-col justify-center py-24 px-6 md:px-12">
+            <div className="max-w-6xl mx-auto w-full">
+              <motion.div
+                className="text-center mb-16"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                <span className="inline-block py-1.5 px-5 border border-foreground/20 rounded-full text-[10px] tracking-[0.25em] uppercase font-medium text-muted-foreground mb-6">
+                  AI-Powered Solutions
+                </span>
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-medium tracking-tight text-foreground leading-[1.05] mb-6">
+                  Intelligence,<br />Engineered.
+                </h2>
+                <p className="text-muted-foreground font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+                  A-Zentrix delivers cutting-edge AI solutions that transform how enterprises operate, compete, and innovate.
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {aiServices.map((service, i) => (
+                  <motion.div
+                    key={service.title}
+                    initial={{ opacity: 0, y: 25, scale: 0.96 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+                    viewport={{ once: true, amount: 0.2 }}
+                  >
+                    <RippleCard className="group h-full p-6 md:p-8 rounded-2xl border border-border bg-card transition-all duration-300">
+                      <div className="w-11 h-11 rounded-xl bg-muted flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
+                        <service.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <h3 className="font-display text-sm tracking-widest uppercase font-semibold text-foreground mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed font-light">
+                        {service.description}
+                      </p>
+                    </RippleCard>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* ===== AI SOLUTIONS SECTION ===== */}
-      <section id="ai-solutions" className="relative z-10 bg-[hsl(var(--overlay-bg))] py-24 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <span className="inline-block py-1.5 px-5 border border-foreground/20 rounded-full text-[10px] tracking-[0.25em] uppercase font-medium text-muted-foreground mb-6">
-              AI-Powered Solutions
-            </span>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-medium tracking-tight text-foreground leading-[1.05] mb-6">
-              Intelligence,<br />Engineered.
-            </h2>
-            <p className="text-muted-foreground font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-              A-Zentrix delivers cutting-edge AI solutions that transform how enterprises operate, compete, and innovate.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {aiServices.map((service, i) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 25, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <RippleCard className="group h-full p-6 md:p-8 rounded-2xl border border-border bg-card transition-all duration-300">
-                  <div className="w-11 h-11 rounded-xl bg-muted flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
-                    <service.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </div>
-                  <h3 className="font-display text-sm tracking-widest uppercase font-semibold text-foreground mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed font-light">
-                    {service.description}
-                  </p>
-                </RippleCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Spacer so content below flows after the fixed reveal */}
+      <div id="ai-solutions" className="relative z-10 min-h-screen" />
 
       {/* ===== NARRATIVE SECTION with dynamic eye ===== */}
       <section ref={narrativeSectionRef} className="relative z-10 bg-[hsl(var(--overlay-bg))] py-24 px-6 md:px-12 overflow-hidden">
