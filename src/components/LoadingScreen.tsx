@@ -11,15 +11,32 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   const rafRef = useRef<number>(0);
   const startRef = useRef(Date.now());
 
-  // Smooth progress counter: 0→100 over ~1800ms with easing
+  // Realistic progress: fast start, pause around 40-60%, then finish
   useEffect(() => {
-    const duration = 1800;
+    const duration = 4000;
     const tick = () => {
       const elapsed = Date.now() - startRef.current;
       const t = Math.min(elapsed / duration, 1);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - t, 3);
-      setProgress(Math.round(eased * 100));
+      // Piecewise easing to simulate realistic loading with a stall
+      let mapped: number;
+      if (t < 0.3) {
+        // Quick ramp to ~35%
+        mapped = (t / 0.3) * 0.35;
+      } else if (t < 0.6) {
+        // Slow crawl from 35% to 55% (the "stall")
+        const sub = (t - 0.3) / 0.3;
+        mapped = 0.35 + sub * 0.2;
+      } else if (t < 0.85) {
+        // Pick up speed from 55% to 90%
+        const sub = (t - 0.6) / 0.25;
+        mapped = 0.55 + sub * 0.35;
+      } else {
+        // Final sprint 90% to 100%
+        const sub = (t - 0.85) / 0.15;
+        const eased = 1 - Math.pow(1 - sub, 2);
+        mapped = 0.9 + eased * 0.1;
+      }
+      setProgress(Math.min(Math.round(mapped * 100), 100));
       if (t < 1) rafRef.current = requestAnimationFrame(tick);
     };
     rafRef.current = requestAnimationFrame(tick);
@@ -27,9 +44,9 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   }, []);
 
   useEffect(() => {
-    const holdTimer = setTimeout(() => setPhase("hold"), 600);
-    const exitTimer = setTimeout(() => setPhase("exit"), 1800);
-    const doneTimer = setTimeout(() => onComplete(), 2600);
+    const holdTimer = setTimeout(() => setPhase("hold"), 800);
+    const exitTimer = setTimeout(() => setPhase("exit"), 4200);
+    const doneTimer = setTimeout(() => onComplete(), 5200);
     return () => {
       clearTimeout(holdTimer);
       clearTimeout(exitTimer);
