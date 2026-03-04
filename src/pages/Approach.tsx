@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
-import eyeBg from "@/assets/eye-bg.jpg";
+import visionaryEye from "@/assets/visionary-eye.png";
 
 const services = [
   {
@@ -49,7 +49,7 @@ const Approach = () => {
             <img
               alt="Artistic red eye illustration"
               className="w-full h-full object-cover object-left"
-              src={eyeBg}
+              src={visionaryEye}
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent w-full h-full" />
