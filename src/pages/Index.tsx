@@ -94,8 +94,10 @@ const Index = () => {
   const narrativeSectionRef = useRef<HTMLDivElement>(null);
   const [activeNarrative, setActiveNarrative] = useState(-1);
 
+  // Is the narrative section in view?
   const narrativeInView = useInView(narrativeSectionRef, { amount: 0.1 });
 
+  // Scroll progress for the eye animation area (hero + approach + eye zoom + solutions reveal)
   const { scrollYProgress: rawProgress } = useScroll({
     target: eyeSectionRef,
     offset: ["start start", "end end"],
@@ -103,12 +105,15 @@ const Index = () => {
 
   const scrollYProgress = useSpring(rawProgress, { stiffness: 150, damping: 40, mass: 0.3 });
 
+  // Eye transforms — zooms in massively, centering the pupil on screen
   const eyeX = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.65, 0.85], ["55%", "-10%", "-10%", "17.5%", "17.5%"]);
   const eyeOpacity = useTransform(scrollYProgress, [0, 0.2, 0.35, 0.5, 0.7, 0.88, 1], [0.85, 0.4, 0.4, 0.65, 1, 1, 1]);
   const eyeScale = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.7, 0.92], [1, 1.05, 1, 2.5, 6]);
   const heroTextOpacity = useTransform(scrollYProgress, [0, 0.25, 0.42], [1, 1, 0]);
   const approachTextOpacity = useTransform(scrollYProgress, [0.25, 0.5, 0.65], [1, 1, 0]);
 
+  // Circular reveal from the eye's pupil — expanding outward
+  // Pupil position on screen when eye is fully zoomed (observed: ~38% left, 32% top)
   const revealRadius = useTransform(scrollYProgress, [0.88, 1], [0, 150]);
   const revealClipPath = useTransform(revealRadius, (r) => `circle(${r}% at 38% 32%)`);
 
@@ -133,6 +138,7 @@ const Index = () => {
     ]
   );
 
+  // Narrative eye config
   const narrativeEyeConfig = activeNarrative >= 0
     ? narrativeSections[activeNarrative].eye
     : { scale: 0.3, x: "0%", y: "0%", opacity: 0, rotate: 0 };
@@ -286,18 +292,68 @@ const Index = () => {
           <div className="relative z-10" />
         </section>
 
-        {/* Circular reveal background — visual-only fixed layer, no scroll */}
+        {/* Circular reveal from eye pupil — solutions content emerges from inside the eye */}
         <motion.div
-          className="fixed inset-0 z-[1] pointer-events-none"
+          className="fixed inset-0 z-[2] overflow-y-auto"
           style={{
             clipPath: revealClipPath,
             backgroundColor: "hsl(var(--overlay-bg))",
+            pointerEvents: revealRadius.get() > 100 ? "auto" : "none",
           }}
-        />
+        >
+          <div className="min-h-screen flex flex-col justify-center py-24 px-6 md:px-12">
+            <div className="max-w-6xl mx-auto w-full">
+              <motion.div
+                className="text-center mb-16"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                <span className="inline-block py-1.5 px-5 border border-foreground/20 rounded-full text-[10px] tracking-[0.25em] uppercase font-medium text-muted-foreground mb-6">
+                  AI-Powered Solutions
+                </span>
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-medium tracking-tight text-foreground leading-[1.05] mb-6">
+                  Intelligence,<br />Engineered.
+                </h2>
+                <p className="text-muted-foreground font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+                  A-Zentrix delivers cutting-edge AI solutions that transform how enterprises operate, compete, and innovate.
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {aiServices.map((service, i) => (
+                  <motion.div
+                    key={service.title}
+                    initial={{ opacity: 0, y: 25, scale: 0.96 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+                    viewport={{ once: true, amount: 0.2 }}
+                  >
+                    <RippleCard className="group h-full p-6 md:p-8 rounded-2xl border border-border bg-card transition-all duration-300">
+                      <div className="w-11 h-11 rounded-xl bg-muted flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
+                        <service.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <h3 className="font-display text-sm tracking-widest uppercase font-semibold text-foreground mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed font-light">
+                        {service.description}
+                      </p>
+                    </RippleCard>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* ===== MERGED SOLUTIONS + NARRATIVE SECTION ===== */}
-      <section ref={narrativeSectionRef} id="ai-solutions" className="relative z-10 bg-[hsl(var(--overlay-bg))] overflow-hidden">
+      {/* Spacer so content below flows after the fixed reveal */}
+      <div id="ai-solutions" className="relative z-10 min-h-screen" />
+
+      {/* ===== NARRATIVE SECTION with dynamic eye ===== */}
+      <section ref={narrativeSectionRef} className="relative z-10 bg-[hsl(var(--overlay-bg))] py-24 px-6 md:px-12 overflow-hidden">
         {/* Narrative eye background */}
         <motion.div
           className="fixed inset-0 pointer-events-none z-0 hidden md:block"
@@ -314,54 +370,14 @@ const Index = () => {
             opacity: { duration: activeNarrative >= 0 ? 1.8 : 0.6 },
           }}
         >
-          <img alt="" className="w-full h-full object-cover" src={eyeBg} />
+          <img
+            alt=""
+            className="w-full h-full object-cover"
+            src={eyeBg}
+          />
         </motion.div>
 
-        <div className="max-w-6xl mx-auto relative z-10 py-24 px-6 md:px-12">
-          {/* AI Solutions */}
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <span className="inline-block py-1.5 px-5 border border-foreground/20 rounded-full text-[10px] tracking-[0.25em] uppercase font-medium text-muted-foreground mb-6">
-              AI-Powered Solutions
-            </span>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-medium tracking-tight text-foreground leading-[1.05] mb-6">
-              Intelligence,<br />Engineered.
-            </h2>
-            <p className="text-muted-foreground font-light text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-              A-Zentrix delivers cutting-edge AI solutions that transform how enterprises operate, compete, and innovate.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-32">
-            {aiServices.map((service, i) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 25, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <RippleCard className="group h-full p-6 md:p-8 rounded-2xl border border-border bg-card transition-all duration-300">
-                  <div className="w-11 h-11 rounded-xl bg-muted flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
-                    <service.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </div>
-                  <h3 className="font-display text-sm tracking-widest uppercase font-semibold text-foreground mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed font-light">
-                    {service.description}
-                  </p>
-                </RippleCard>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Narrative divider */}
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
             className="text-center mb-20"
             initial={{ opacity: 0 }}
@@ -383,7 +399,6 @@ const Index = () => {
             </p>
           </motion.div>
 
-          {/* Narrative sections */}
           <div className="space-y-40">
             {narrativeSections.map((section, i) => (
               <motion.div
@@ -400,16 +415,36 @@ const Index = () => {
                 transition={{ duration: 0.9, ease: "easeOut" }}
                 viewport={{ once: false, amount: 0.4 }}
               >
-                <div className={`glass-panel p-12 md:p-20 max-w-2xl relative ${section.align === "center" ? "text-center border-none shadow-none" : "shadow-2xl"}`}>
-                  <span className={`text-primary font-display text-6xl opacity-20 ${section.align === "center" ? "block mb-6" : section.align === "right" ? "absolute -top-10 -right-6" : "absolute -top-10 -left-6"}`}>
+                <div
+                  className={`glass-panel p-12 md:p-20 max-w-2xl relative ${
+                    section.align === "center" ? "text-center border-none shadow-none" : "shadow-2xl"
+                  }`}
+                >
+                  <span
+                    className={`text-primary font-display text-6xl opacity-20 ${
+                      section.align === "center"
+                        ? "block mb-6"
+                        : section.align === "right"
+                        ? "absolute -top-10 -right-6"
+                        : "absolute -top-10 -left-6"
+                    }`}
+                  >
                     {section.num}
                   </span>
                   <div className={section.align === "center" ? "space-y-8" : "space-y-6"}>
-                    <h2 className={`font-display uppercase tracking-tight leading-none text-foreground ${section.align === "center" ? "text-4xl md:text-7xl" : "text-4xl md:text-5xl"}`}>
+                    <h2
+                      className={`font-display uppercase tracking-tight leading-none text-foreground ${
+                        section.align === "center" ? "text-4xl md:text-7xl" : "text-4xl md:text-5xl"
+                      }`}
+                    >
                       {section.title}
                     </h2>
                     {section.align !== "center" && <div className="w-12 h-1 bg-primary" />}
-                    <p className={`text-muted-foreground font-light leading-relaxed ${section.align === "center" ? "text-lg md:text-xl max-w-lg mx-auto" : "text-lg md:text-xl"}`}>
+                    <p
+                      className={`text-muted-foreground font-light leading-relaxed ${
+                        section.align === "center" ? "text-lg md:text-xl max-w-lg mx-auto" : "text-lg md:text-xl"
+                      }`}
+                    >
                       {section.description}
                     </p>
                     {section.icon && section.label && (
@@ -421,7 +456,10 @@ const Index = () => {
                     {section.align === "center" && (
                       <a
                         href="#"
-                        onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
                         className="inline-flex items-center gap-4 px-12 py-5 bg-primary text-primary-foreground rounded-full hover:scale-105 transition-transform duration-500 group"
                       >
                         <span className="tracking-[0.4em] uppercase text-xs font-bold">Start Evolution</span>
@@ -437,7 +475,10 @@ const Index = () => {
           <div className="text-center mt-24">
             <a
               href="#"
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
               className="inline-flex items-center gap-3 px-10 py-4 bg-foreground rounded-full text-background text-xs tracking-[0.2em] uppercase font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-lg"
             >
               Back to Top
