@@ -114,8 +114,10 @@ const Index = () => {
 
   // Circular reveal from the eye's pupil — expanding outward
   // Pupil position on screen when eye is fully zoomed (observed: ~38% left, 32% top)
-  const revealRadius = useTransform(scrollYProgress, [0.88, 1], [0, 150]);
-  const revealClipPath = useTransform(revealRadius, (r) => `circle(${r}% at 38% 32%)`);
+  const revealRadius = useTransform(scrollYProgress, [0.85, 0.98], [0, 300]);
+  const revealClipPath = useTransform(revealRadius, (r) => 
+    r >= 299 ? "none" : `circle(${r}% at 38% 32%)`
+  );
 
   const maskGradient = useTransform(
     scrollYProgress,
