@@ -69,7 +69,7 @@ const Index = () => {
   return (
     <div
       ref={containerRef}
-      className="relative bg-background text-foreground font-body min-h-screen flex flex-col overflow-x-hidden transition-colors duration-500 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      className="relative bg-background text-foreground font-body min-h-screen flex flex-col overflow-x-hidden transition-colors duration-500">
 
       {/* Grain overlay */}
       <div className="fixed inset-0 bg-grain pointer-events-none z-0" />
