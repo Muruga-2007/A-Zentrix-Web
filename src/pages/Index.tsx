@@ -302,8 +302,8 @@ const Index = () => {
         />
       </div>
 
-      {/* Everything after the eye zoom gets the overlay bg so it looks like it emerged from the pupil */}
-      <div className="relative z-[2]">
+      {/* Everything after the eye zoom is clipped by the same pupil reveal */}
+      <motion.div className="relative z-[2]" style={{ clipPath: revealClipPath }}>
 
       {/* AI SOLUTIONS SECTION - in normal document flow */}
       <section id="ai-solutions" className="relative z-10 bg-[hsl(var(--overlay-bg))] py-24 px-6 md:px-12">
@@ -493,7 +493,7 @@ const Index = () => {
       <div className="relative z-10 bg-[hsl(var(--overlay-bg))]">
         <Footer />
       </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
