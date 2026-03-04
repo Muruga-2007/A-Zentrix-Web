@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SandalOverlayContent from "@/components/SandalOverlayContent";
 import ScrambleText from "@/components/ScrambleText";
+import EyeTransitionParticles from "@/components/EyeTransitionParticles";
 import eyeBg from "@/assets/eye-bg.jpg";
 
 const services = [
@@ -86,7 +87,7 @@ const Index = () => {
 
       {/* ===== FLOATING EYE - scroll-linked ===== */}
       <motion.div
-        className="fixed top-0 h-full w-[65%] pointer-events-none z-0 hidden md:block will-change-transform"
+        className="fixed top-0 h-full w-full md:w-[65%] pointer-events-none z-0 will-change-transform"
         style={{
           x: eyeX,
           opacity: eyeOpacity,
@@ -240,6 +241,9 @@ const Index = () => {
           backgroundColor: "hsl(var(--overlay-bg))",
           clipPath,
         }} />
+
+      {/* Light ray particles during eye zoom */}
+      <EyeTransitionParticles scrollProgress={scrollYProgress} />
 
       {/* AI Services content with scale entrance */}
       <motion.div
