@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Fingerprint, Eye, CircleDot, Brain, Cpu, BarChart3, Sparkles, Zap, Globe } from "lucide-react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RippleCard from "@/components/RippleCard";
@@ -66,6 +66,7 @@ const narrativeSections = [
     icon: CircleDot,
     label: "Precision Engineering",
     align: "left" as const,
+    eye: { scale: 1, x: "30%", y: "-5%", opacity: 0.5, rotate: 0 },
   },
   {
     num: "02",
@@ -74,6 +75,7 @@ const narrativeSections = [
     icon: Fingerprint,
     label: "Genetic Branding",
     align: "right" as const,
+    eye: { scale: 1.4, x: "-30%", y: "0%", opacity: 0.4, rotate: 15 },
   },
   {
     num: "03",
@@ -82,14 +84,20 @@ const narrativeSections = [
     icon: null,
     label: null,
     align: "center" as const,
+    eye: { scale: 0.8, x: "0%", y: "0%", opacity: 0.7, rotate: -10 },
   },
 ];
 
 const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const eyeSectionRef = useRef<HTMLDivElement>(null);
+  const narrativeSectionRef = useRef<HTMLDivElement>(null);
+  const [activeNarrative, setActiveNarrative] = useState(-1);
 
-  // Scroll progress for the eye animation area (hero + approach + eye zoom)
+  // Is the narrative section in view?
+  const narrativeInView = useInView(narrativeSectionRef, { amount: 0.1 });
+
+  // Scroll progress for the eye animation area (hero + approach + eye zoom + solutions reveal)
   const { scrollYProgress: rawProgress } = useScroll({
     target: eyeSectionRef,
     offset: ["start start", "end end"],
@@ -97,16 +105,19 @@ const Index = () => {
 
   const scrollYProgress = useSpring(rawProgress, { stiffness: 150, damping: 40, mass: 0.3 });
 
-  // Eye transforms scoped to the eye section
-  const eyeX = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], ["55%", "-10%", "-10%", "17.5%"]);
-  const eyeOpacity = useTransform(scrollYProgress, [0, 0.25, 0.4, 0.66, 0.85, 1], [0.85, 0.4, 0.4, 0.65, 1, 0]);
-  const eyeScale = useTransform(scrollYProgress, [0, 0.33, 0.66, 0.85, 1], [1, 1.05, 1, 1.8, 3.5]);
-  const heroTextOpacity = useTransform(scrollYProgress, [0, 0.33, 0.55], [1, 1, 0]);
-  const approachTextOpacity = useTransform(scrollYProgress, [0.33, 0.66, 0.85], [1, 1, 0]);
+  // Eye transforms — zooms in and holds at the end so solutions appear "through" the eye
+  const eyeX = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75], ["55%", "-10%", "-10%", "0%"]);
+  const eyeOpacity = useTransform(scrollYProgress, [0, 0.2, 0.35, 0.5, 0.7, 0.85, 1], [0.85, 0.4, 0.4, 0.65, 1, 0.6, 0]);
+  const eyeScale = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.7, 0.85], [1, 1.05, 1, 1.8, 3.5]);
+  const heroTextOpacity = useTransform(scrollYProgress, [0, 0.25, 0.42], [1, 1, 0]);
+  const approachTextOpacity = useTransform(scrollYProgress, [0.25, 0.5, 0.65], [1, 1, 0]);
+
+  // Overlay that transitions from transparent to the solutions bg color
+  const overlayOpacity = useTransform(scrollYProgress, [0.75, 0.95], [0, 1]);
 
   const maskGradient = useTransform(
     scrollYProgress,
-    [0, 0.33, 0.66, 1],
+    [0, 0.25, 0.5, 0.75],
     [
       "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
       "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
@@ -116,7 +127,7 @@ const Index = () => {
   );
   const bgGradient = useTransform(
     scrollYProgress,
-    [0, 0.5, 0.85, 1],
+    [0, 0.4, 0.7, 0.85],
     [
       "linear-gradient(to right, hsl(var(--background)) 0%, transparent 30%)",
       "linear-gradient(to left, hsl(var(--background)) 0%, transparent 30%)",
@@ -124,6 +135,11 @@ const Index = () => {
       "linear-gradient(to left, transparent 0%, transparent 100%)",
     ]
   );
+
+  // Narrative eye config
+  const narrativeEyeConfig = activeNarrative >= 0
+    ? narrativeSections[activeNarrative].eye
+    : { scale: 0.3, x: "0%", y: "0%", opacity: 0, rotate: 0 };
 
   return (
     <div
@@ -135,17 +151,16 @@ const Index = () => {
 
       <Navbar />
 
-      {/* ===== EYE ANIMATION AREA (sticky eye + 3 scroll sections) ===== */}
+      {/* ===== EYE ANIMATION AREA (hero + approach + eye zoom) ===== */}
       <div ref={eyeSectionRef} className="relative">
-        {/* Floating eye - sticky within this section */}
+        {/* Floating eye - fixed position, scroll-linked */}
         <motion.div
-          className="sticky top-0 h-screen w-[65%] pointer-events-none z-0 hidden md:block will-change-transform"
+          className="fixed top-0 h-screen w-[65%] pointer-events-none z-0 hidden md:block will-change-transform"
           style={{
             x: eyeX,
             opacity: eyeOpacity,
             scale: eyeScale,
             translateZ: 0,
-            position: "fixed",
           }}
         >
           <motion.div
@@ -270,10 +285,19 @@ const Index = () => {
           </div>
         </motion.section>
 
-        {/* EYE ZOOM SECTION - empty spacer where eye centers & zooms */}
+        {/* EYE ZOOM SECTION - spacer where eye centers & zooms, overlay fades in */}
         <section className="relative min-h-screen flex flex-col justify-center items-center">
           <div className="relative z-10" />
         </section>
+
+        {/* Smooth overlay that fades in over the zoomed eye to transition into solutions */}
+        <motion.div
+          className="fixed inset-0 pointer-events-none z-[1]"
+          style={{
+            opacity: overlayOpacity,
+            backgroundColor: "hsl(var(--overlay-bg))",
+          }}
+        />
       </div>
 
       {/* ===== AI SOLUTIONS SECTION ===== */}
@@ -323,9 +347,32 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ===== NARRATIVE SECTION ===== */}
-      <section className="relative z-10 bg-[hsl(var(--overlay-bg))] py-24 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto">
+      {/* ===== NARRATIVE SECTION with dynamic eye ===== */}
+      <section ref={narrativeSectionRef} className="relative z-10 bg-[hsl(var(--overlay-bg))] py-24 px-6 md:px-12 overflow-hidden">
+        {/* Narrative eye background */}
+        <motion.div
+          className="fixed inset-0 pointer-events-none z-0 hidden md:block"
+          animate={{
+            scale: narrativeInView ? narrativeEyeConfig.scale : 0.3,
+            x: narrativeInView ? narrativeEyeConfig.x : "0%",
+            y: narrativeInView ? narrativeEyeConfig.y : "0%",
+            opacity: narrativeInView ? narrativeEyeConfig.opacity : 0,
+            rotate: narrativeInView ? narrativeEyeConfig.rotate : 0,
+          }}
+          transition={{
+            duration: 1.2,
+            ease: [0.23, 1, 0.32, 1],
+            opacity: { duration: activeNarrative >= 0 ? 1.8 : 0.6 },
+          }}
+        >
+          <img
+            alt=""
+            className="w-full h-full object-cover"
+            src={eyeBg}
+          />
+        </motion.div>
+
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
             className="text-center mb-20"
             initial={{ opacity: 0 }}
@@ -348,7 +395,7 @@ const Index = () => {
           </motion.div>
 
           <div className="space-y-40">
-            {narrativeSections.map((section) => (
+            {narrativeSections.map((section, i) => (
               <motion.div
                 key={section.num}
                 className={`flex ${section.align === "right" ? "justify-end" : section.align === "center" ? "justify-center" : "justify-start"}`}
@@ -358,8 +405,10 @@ const Index = () => {
                   y: section.align === "center" ? 50 : 0,
                 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
+                onViewportEnter={() => setActiveNarrative(i)}
+                onViewportLeave={() => setActiveNarrative((prev) => (prev === i ? -1 : prev))}
                 transition={{ duration: 0.9, ease: "easeOut" }}
-                viewport={{ once: true, amount: 0.4 }}
+                viewport={{ once: false, amount: 0.4 }}
               >
                 <div
                   className={`glass-panel p-12 md:p-20 max-w-2xl relative ${
