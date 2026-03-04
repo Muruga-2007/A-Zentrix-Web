@@ -1,4 +1,4 @@
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { motion, MotionValue, useMotionValueEvent } from "framer-motion";
 import { Brain, Cpu, BarChart3, Sparkles, Zap, Globe, ArrowRight, CircleDot, Fingerprint } from "lucide-react";
 import RippleCard from "./RippleCard";
@@ -76,6 +76,24 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeNarrative, setActiveNarrative] = useState(-1);
 
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    if (isVisible) {
+      html.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+    } else {
+      html.style.overflow = "";
+      body.style.overflow = "";
+    }
+
+    return () => {
+      html.style.overflow = "";
+      body.style.overflow = "";
+    };
+  }, [isVisible]);
+
   useMotionValueEvent(opacity, "change", (latest) => {
     const nowVisible = latest > 0.05;
     if (nowVisible && !isVisible) {
@@ -129,7 +147,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
       <div
         ref={scrollRef}
         onWheel={handleWheel}
-        className={`w-full max-w-6xl mx-auto px-6 md:px-12 overflow-y-auto max-h-screen py-24 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] relative z-10 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`w-full max-w-6xl mx-auto px-6 md:px-12 max-h-screen py-24 relative z-10 ${isVisible ? "pointer-events-auto overflow-y-auto" : "pointer-events-none overflow-y-hidden"}`}
       >
         {/* ===== AI SOLUTIONS SECTION ===== */}
         <motion.div
