@@ -38,9 +38,17 @@ const Index = () => {
   // Eye: right → left → center as you scroll through 3 sections
   const eyeX = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], ["55%", "-10%", "-10%", "17.5%"]);
   const eyeOpacity = useTransform(scrollYProgress, [0, 0.25, 0.4, 0.66, 0.82, 0.92, 1], [0.85, 0.4, 0.4, 0.65, 1, 1, 0]);
-  const eyeScale = useTransform(scrollYProgress, [0, 0.33, 0.66, 0.82, 0.95], [1, 1.05, 1, 1.8, 3.5]);
-  const blackOverlayOpacity = useTransform(scrollYProgress, [0.78, 0.92], [0, 1]);
-  const sandalContentOpacity = useTransform(scrollYProgress, [0.88, 0.98], [0, 1]);
+  const eyeScale = useTransform(scrollYProgress, [0, 0.33, 0.66, 0.78, 0.88, 0.95], [1, 1.05, 1, 1.6, 4, 6]);
+  const blackOverlayOpacity = useTransform(scrollYProgress, [0.80, 0.90], [0, 1]);
+  const sandalContentOpacity = useTransform(scrollYProgress, [0.90, 0.98], [0, 1]);
+
+  // Radial reveal clip-path from the pupil center
+  const clipRadius = useTransform(scrollYProgress, [0.82, 0.96], [0, 150]);
+  const clipPath = useTransform(clipRadius, (r) => `circle(${r}% at 38% 32%)`);
+
+  // Content scale for a subtle zoom-in feel
+  const contentScale = useTransform(scrollYProgress, [0.90, 1], [0.92, 1]);
+  const contentY = useTransform(scrollYProgress, [0.90, 1], [40, 0]);
   const heroTextOpacity = useTransform(scrollYProgress, [0, 0.33, 0.55], [1, 1, 0]);
   const approachTextOpacity = useTransform(scrollYProgress, [0.33, 0.66, 0.85], [1, 1, 0]);
 
@@ -224,14 +232,26 @@ const Index = () => {
         <div className="relative z-10" />
       </section>
 
-      {/* Sandal overlay that covers everything at end of scroll */}
+      {/* Black overlay with radial reveal from pupil */}
       <motion.div
-        className="fixed inset-0 pointer-events-none z-50 will-change-[opacity]"
-        style={{ opacity: blackOverlayOpacity, backgroundColor: "hsl(var(--overlay-bg))" }} />
+        className="fixed inset-0 pointer-events-none z-50 will-change-[opacity,clip-path]"
+        style={{ 
+          opacity: blackOverlayOpacity, 
+          backgroundColor: "hsl(var(--overlay-bg))",
+          clipPath,
+        }} />
 
-
-      {/* AI Services content on sandal overlay */}
-      <SandalOverlayContent opacity={sandalContentOpacity} />
+      {/* AI Services content with scale entrance */}
+      <motion.div
+        className="fixed inset-0 z-[51] pointer-events-none"
+        style={{ 
+          opacity: sandalContentOpacity,
+          scale: contentScale,
+          y: contentY,
+        }}
+      >
+        <SandalOverlayContent opacity={sandalContentOpacity} />
+      </motion.div>
 
 
       {/* Bottom blur orb */}
