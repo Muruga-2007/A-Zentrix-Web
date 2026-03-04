@@ -105,16 +105,17 @@ const Index = () => {
 
   const scrollYProgress = useSpring(rawProgress, { stiffness: 150, damping: 40, mass: 0.3 });
 
-  // Eye transforms — zooms in and holds at the end so solutions appear "through" the eye
-  const eyeX = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75], ["55%", "-10%", "-10%", "0%"]);
-  const eyeOpacity = useTransform(scrollYProgress, [0, 0.2, 0.35, 0.5, 0.7, 0.92, 1], [0.85, 0.4, 0.4, 0.65, 1, 1, 0.3]);
-  const eyeScale = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.7, 0.9], [1, 1.05, 1, 1.8, 4.5]);
+  // Eye transforms — zooms in massively, centering the pupil on screen
+  const eyeX = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.65, 0.85], ["55%", "-10%", "-10%", "17.5%", "17.5%"]);
+  const eyeOpacity = useTransform(scrollYProgress, [0, 0.2, 0.35, 0.5, 0.7, 0.88, 1], [0.85, 0.4, 0.4, 0.65, 1, 1, 1]);
+  const eyeScale = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.7, 0.92], [1, 1.05, 1, 2.5, 6]);
   const heroTextOpacity = useTransform(scrollYProgress, [0, 0.25, 0.42], [1, 1, 0]);
   const approachTextOpacity = useTransform(scrollYProgress, [0.25, 0.5, 0.65], [1, 1, 0]);
 
-  // Circular reveal from eye pupil — clip-path circle expanding from the pupil position
-  const revealRadius = useTransform(scrollYProgress, [0.78, 1], [0, 150]);
-  const revealClipPath = useTransform(revealRadius, (r) => `circle(${r}% at 38% 48%)`);
+  // Circular reveal from the eye's pupil — expanding outward
+  // Pupil position on screen when eye is fully zoomed (observed: ~38% left, 32% top)
+  const revealRadius = useTransform(scrollYProgress, [0.88, 1], [0, 150]);
+  const revealClipPath = useTransform(revealRadius, (r) => `circle(${r}% at 38% 32%)`);
 
   const maskGradient = useTransform(
     scrollYProgress,
@@ -286,14 +287,14 @@ const Index = () => {
           </div>
         </motion.section>
 
-        {/* EYE ZOOM SECTION - spacer where eye centers & zooms, overlay fades in */}
-        <section className="relative min-h-screen flex flex-col justify-center items-center">
+        {/* EYE ZOOM SECTION - spacer where eye zooms in and pupil opens */}
+        <section className="relative min-h-[150vh] flex flex-col justify-center items-center">
           <div className="relative z-10" />
         </section>
 
         {/* Circular reveal from eye pupil — solutions emerge from inside the eye */}
         <motion.div
-          className="fixed inset-0 pointer-events-none z-[1]"
+          className="fixed inset-0 pointer-events-none z-[2]"
           style={{
             clipPath: revealClipPath,
             backgroundColor: "hsl(var(--overlay-bg))",
