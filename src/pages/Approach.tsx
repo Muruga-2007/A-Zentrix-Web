@@ -1,136 +1,139 @@
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
-import visionaryEye from "@/assets/visionary-eye.png";
+import approachEye from "@/assets/approach-eye.png";
 
 const services = [
   {
     icon: CircleDot,
     title: "Digital Strategy",
-    description: "Navigating complex digital landscapes with foresight and architectural precision.",
+    description:
+      "Navigating complex digital landscapes with surgical precision and creative foresight to architect conversion-focused user journeys.",
   },
   {
     icon: Fingerprint,
     title: "Brand Identity",
-    description: "Forging the soul of your brand through cohesive visual narratives and storytelling.",
+    description:
+      "Forging the soul of your enterprise through a cohesive visual language that communicates authority and elegance simultaneously.",
   },
   {
     icon: Eye,
     title: "Visual Intelligence",
-    description: "Transforming complex datasets into compelling artistic visuals that drive decisions.",
+    description:
+      "Transforming raw data into compelling high-art narratives, enabling stakeholders to visualize growth and performance with clarity.",
   },
 ];
 
 const Approach = () => {
   return (
     <PageTransition>
-      <div className="bg-background text-foreground font-body min-h-screen flex flex-col overflow-x-hidden relative transition-colors duration-500">
+      <div className="bg-white text-gray-800 font-body min-h-screen flex flex-col overflow-x-hidden relative">
         <div className="fixed inset-0 bg-grain pointer-events-none z-0" />
 
         <Navbar />
 
-        {/* Background image - left side */}
-        <motion.div
-          className="fixed top-0 left-0 h-full w-full md:w-[60%] pointer-events-none z-0 overflow-hidden"
-          initial={{ opacity: 0, x: -80, scale: 1.05 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 1.4, ease: [0.23, 1, 0.32, 1] }}
-        >
-          <div
-            className="w-full h-full relative opacity-90"
-            style={{
-              maskImage: "linear-gradient(to right, black 60%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to right, black 60%, transparent 100%)",
-            }}
-          >
-            <img
-              alt="Artistic red eye illustration"
-              className="w-full h-full object-cover object-left"
-              src={visionaryEye}
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent w-full h-full" />
-        </motion.div>
-
-        <main className="flex-grow flex flex-col justify-center relative z-10 pt-24 pb-12 px-4 md:px-12 w-full max-w-7xl mx-auto">
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="hidden md:block" />
+        <main className="flex-grow flex items-center relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-full min-h-[85vh] items-center">
+            {/* Eye image - left side */}
             <motion.div
-              className="flex flex-col items-start gap-8 relative z-20"
+              className="relative h-full w-full hidden md:block"
+              initial={{ opacity: 0, x: -60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
+            >
+              <div
+                className="w-full h-full"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, black 60%, transparent 95%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, black 60%, transparent 95%)",
+                }}
+              >
+                <img
+                  alt="Detailed realistic eye illustration"
+                  className="w-full h-full object-cover object-center scale-110"
+                  src={approachEye}
+                />
+              </div>
+            </motion.div>
+
+            {/* Content - right side */}
+            <motion.div
+              className="px-8 md:px-20 py-24 flex flex-col justify-center max-w-3xl"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
+              transition={{
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.23, 1, 0.32, 1],
+              }}
             >
-              <div className="space-y-6">
-                <motion.div
-                  className="inline-flex items-center gap-2 py-1 px-4 border border-primary/20 bg-primary/5 rounded-full"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  <span className="text-[10px] tracking-[0.2em] uppercase font-medium text-primary">Strategic Focus</span>
-                </motion.div>
-                <motion.h2
-                  className="text-5xl md:text-7xl font-display font-medium tracking-tight text-foreground leading-[1.1] uppercase"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.4 }}
-                >
-                  Our Visionary<br />Approach
-                </motion.h2>
+              <div className="space-y-8">
+                <header>
+                  <motion.span
+                    className="inline-block mb-4 text-xs tracking-[0.4em] uppercase font-semibold text-primary/80"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                  >
+                    Our Expertise
+                  </motion.span>
+                  <motion.h1
+                    className="text-5xl md:text-7xl font-display font-medium tracking-tight text-gray-900 leading-tight uppercase"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.4 }}
+                  >
+                    Our Visionary
+                    <br />
+                    Approach
+                  </motion.h1>
+                </header>
+
                 <motion.p
-                  className="text-muted-foreground font-light text-base md:text-lg tracking-wide leading-relaxed max-w-md"
+                  className="text-gray-500 font-light text-lg leading-relaxed max-w-xl"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.55 }}
                 >
-                  We perceive what others overlook. Our methodology combines artistic intuition with data-driven strategy to craft identities that resonate on a deeper frequency.
+                  We perceive what others overlook. Our methodology combines
+                  artistic intuition with data-driven strategy to craft
+                  corporate identities that resonate on a deeper, more impactful
+                  frequency.
                 </motion.p>
-              </div>
 
-              <div className="space-y-8 mt-4 w-full max-w-md">
-                {services.map((service, i) => (
-                  <motion.div
-                    key={service.title}
-                    className="flex gap-6 group"
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.7 + i * 0.15, ease: "easeOut" }}
-                    whileHover={{ x: 6 }}
-                  >
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full border border-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110 transition-all duration-300">
-                      <service.icon className="w-5 h-5" />
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="font-display text-sm tracking-widest uppercase font-semibold text-foreground">
-                        {service.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed font-light">
-                        {service.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
+                <div className="grid grid-cols-1 gap-10 pt-10">
+                  {services.map((service, i) => (
+                    <motion.div
+                      key={service.title}
+                      className="flex gap-6 group"
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.7 + i * 0.15,
+                        ease: "easeOut",
+                      }}
+                      whileHover={{ x: 6 }}
+                    >
+                      <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full border border-gray-100 group-hover:border-primary/20 transition-colors">
+                        <service.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-display font-bold text-gray-900 uppercase tracking-widest">
+                          {service.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 font-light leading-relaxed max-w-sm">
+                          {service.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-
-              <motion.div
-                className="pt-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.2 }}
-              >
-                <Link
-                  to="/"
-                  className="inline-flex items-center justify-center gap-4 px-10 py-4 bg-foreground rounded-full text-background hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-500 shadow-xl group"
-                >
-                  <span className="font-body font-medium text-xs tracking-[0.2em] uppercase">Continue Journey</span>
-                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
             </motion.div>
           </div>
         </main>
