@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SandalOverlayContent from "@/components/SandalOverlayContent";
 import ScrambleText from "@/components/ScrambleText";
-import EyeTransitionParticles from "@/components/EyeTransitionParticles";
+
 import eyeBg from "@/assets/eye-bg.jpg";
 
 const services = [
@@ -242,8 +242,6 @@ const Index = () => {
           clipPath,
         }} />
 
-      {/* Light ray particles during eye zoom */}
-      <EyeTransitionParticles scrollProgress={scrollYProgress} />
 
       {/* AI Services content with scale entrance */}
       <motion.div
