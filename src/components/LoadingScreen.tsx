@@ -13,7 +13,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
   // Realistic progress: fast start, pause around 40-60%, then finish
   useEffect(() => {
-    const duration = 4000;
+    const duration = 2400;
     const tick = () => {
       const elapsed = Date.now() - startRef.current;
       const t = Math.min(elapsed / duration, 1);
@@ -44,9 +44,9 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   }, []);
 
   useEffect(() => {
-    const holdTimer = setTimeout(() => setPhase("hold"), 800);
-    const exitTimer = setTimeout(() => setPhase("exit"), 4200);
-    const doneTimer = setTimeout(() => onComplete(), 5200);
+    const holdTimer = setTimeout(() => setPhase("hold"), 500);
+    const exitTimer = setTimeout(() => setPhase("exit"), 2500);
+    const doneTimer = setTimeout(() => onComplete(), 3300);
     return () => {
       clearTimeout(holdTimer);
       clearTimeout(exitTimer);
