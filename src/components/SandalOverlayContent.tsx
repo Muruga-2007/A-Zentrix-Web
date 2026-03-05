@@ -151,14 +151,24 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {aiServices.map((service, i) => (
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.12, delayChildren: 0.3 },
+            },
+          }}
+        >
+          {aiServices.map((service) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 25, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-              viewport={{ once: true, amount: 0.2 }}
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.95 },
+                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } },
+              }}
             >
               <RippleCard className="group h-full p-6 md:p-8 rounded-2xl border border-border bg-card transition-all duration-300">
                 <div className="w-11 h-11 rounded-xl bg-muted flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
@@ -173,7 +183,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
               </RippleCard>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* ===== NARRATIVE DIVIDER ===== */}
         <motion.div
