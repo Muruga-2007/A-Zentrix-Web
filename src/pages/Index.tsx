@@ -43,9 +43,7 @@ const Index = () => {
   const blackOverlayOpacity = useTransform(scrollYProgress, [0.80, 0.90], [0, 1]);
   const sandalContentOpacity = useTransform(scrollYProgress, [0.90, 0.98], [0, 1]);
 
-  // Radial reveal clip-path from the pupil center
-  const clipRadius = useTransform(scrollYProgress, [0.82, 0.96], [0, 150]);
-  const clipPath = useTransform(clipRadius, (r) => `circle(${r}% at 38% 32%)`);
+
 
   // Content scale for a subtle zoom-in feel
   const contentScale = useTransform(scrollYProgress, [0.90, 1], [0.92, 1]);
@@ -235,11 +233,10 @@ const Index = () => {
 
       {/* Black overlay with radial reveal from pupil */}
       <motion.div
-        className="fixed inset-0 pointer-events-none z-50 will-change-[opacity,clip-path]"
+        className="fixed inset-0 pointer-events-none z-50 will-change-[opacity]"
         style={{ 
           opacity: blackOverlayOpacity, 
           backgroundColor: "hsl(var(--overlay-bg))",
-          clipPath,
         }} />
 
 
