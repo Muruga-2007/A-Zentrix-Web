@@ -5,6 +5,7 @@ import founderImg from "@/assets/founder.jpeg";
 import cofounderImg from "@/assets/cofounder.png";
 import developerImg from "@/assets/developer.jpg";
 import prawinImg from "@/assets/prawin.png";
+import niranjaniImg from "@/assets/niranjani.png";
 
 const testimonials = [
   {
@@ -34,6 +35,13 @@ const testimonials = [
     name: "Prawin",
     designation: "Developer at A-ZENTRIX",
     src: prawinImg,
+  },
+  {
+    quote:
+      "Research drives innovation. I'm dedicated to exploring new frontiers and turning cutting-edge ideas into practical, impactful solutions.",
+    name: "Niranjani Priya",
+    designation: "Research & Development Head at A-ZENTRIX",
+    src: niranjaniImg,
   },
   {
     quote:
