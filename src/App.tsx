@@ -11,6 +11,7 @@ import Narrative from "./pages/Narrative";
 import NotFound from "./pages/NotFound";
 import Approach from "./pages/Approach";
 import Collaborators from "./pages/Collaborators";
+import Products from "./pages/Products";
 import LoadingScreen from "./components/LoadingScreen";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const AnimatedRoutes = () => {
         <Route path="/narrative" element={<Narrative />} />
         <Route path="/approach" element={<Approach />} />
         <Route path="/collaborators" element={<Collaborators />} />
+        <Route path="/products" element={<Products />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
