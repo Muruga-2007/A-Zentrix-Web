@@ -1,29 +1,30 @@
 import { useRef } from "react";
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SandalOverlayContent from "@/components/SandalOverlayContent";
 import ScrambleText from "@/components/ScrambleText";
 
 import eyeBg from "@/assets/eye-bg.jpg";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const services = [
-{
-  icon: CircleDot,
-  title: "Digital Strategy",
-  description: "Navigating complex digital landscapes with foresight and architectural precision."
-},
-{
-  icon: Fingerprint,
-  title: "Brand Identity",
-  description: "Forging the soul of your brand through cohesive visual narratives and storytelling."
-},
-{
-  icon: Eye,
-  title: "Visual Intelligence",
-  description: "Transforming complex datasets into compelling artistic visuals that drive decisions."
-}];
+  {
+    icon: CircleDot,
+    title: "Digital Strategy",
+    description: "Navigating complex digital landscapes with foresight and architectural precision."
+  },
+  {
+    icon: Fingerprint,
+    title: "Brand Identity",
+    description: "Forging the soul of your brand through cohesive visual narratives and storytelling."
+  },
+  {
+    icon: Eye,
+    title: "Visual Intelligence",
+    description: "Transforming complex datasets into compelling artistic visuals that drive decisions."
+  }];
 
 
 const Index = () => {
@@ -33,8 +34,7 @@ const Index = () => {
     offset: ["start start", "end end"]
   });
 
-  // Smooth out the scroll progress with a spring
-  const scrollYProgress = useSpring(rawProgress, { stiffness: 150, damping: 40, mass: 0.3 });
+  const scrollYProgress = rawProgress;
 
   // Eye: right → left → center as you scroll through 3 sections
   const eyeX = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], ["55%", "-10%", "-10%", "17.5%"]);
@@ -56,20 +56,20 @@ const Index = () => {
     scrollYProgress,
     [0, 0.33, 0.66, 1],
     [
-    "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
-    "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
-    "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
-    "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)"]
+      "linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%)",
+      "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
+      "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
+      "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)"]
 
   );
   const bgGradient = useTransform(
     scrollYProgress,
     [0, 0.5, 0.85, 1],
     [
-    "linear-gradient(to right, hsl(var(--background)) 0%, transparent 30%)",
-    "linear-gradient(to left, hsl(var(--background)) 0%, transparent 30%)",
-    "linear-gradient(to left, transparent 0%, transparent 100%)",
-    "linear-gradient(to left, transparent 0%, transparent 100%)"]
+      "linear-gradient(to right, hsl(var(--background)) 0%, transparent 30%)",
+      "linear-gradient(to left, hsl(var(--background)) 0%, transparent 30%)",
+      "linear-gradient(to left, transparent 0%, transparent 100%)",
+      "linear-gradient(to left, transparent 0%, transparent 100%)"]
 
   );
 
@@ -100,10 +100,13 @@ const Index = () => {
             WebkitMaskImage: maskGradient
           }}>
 
-          <img
+          <OptimizedImage
             alt="Artistic eye sketch background"
             className="w-full h-full object-cover object-center"
-            src={eyeBg} />
+            src={eyeBg}
+            priority
+            blur={false}
+          />
 
         </motion.div>
         <motion.div
@@ -188,13 +191,13 @@ const Index = () => {
 
               <div className="space-y-8 mt-4 w-full max-w-md">
                 {services.map((service, i) =>
-                <motion.div
-                  key={service.title}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 + i * 0.15, ease: "easeOut" }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  className="flex gap-6 group">
+                  <motion.div
+                    key={service.title}
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.15, ease: "easeOut" }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="flex gap-6 group">
 
                     <div className="flex-shrink-0 w-12 h-12 rounded-full border border-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
                       <service.icon className="w-5 h-5" />
@@ -214,7 +217,7 @@ const Index = () => {
               <div className="pt-8">
                 <a
                   href="#"
-                  onClick={(e) => {e.preventDefault();window.scrollTo({ top: 0, behavior: 'smooth' });}}
+                  onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="inline-flex items-center justify-center gap-4 px-10 py-4 bg-foreground rounded-full text-background hover:bg-primary hover:text-primary-foreground transition-all duration-500 shadow-xl group">
 
                   <span className="font-body font-medium text-xs tracking-[0.2em] uppercase">Back to Top</span>
@@ -234,8 +237,8 @@ const Index = () => {
       {/* Black overlay with radial reveal from pupil */}
       <motion.div
         className="fixed inset-0 pointer-events-none z-50 will-change-[opacity]"
-        style={{ 
-          opacity: blackOverlayOpacity, 
+        style={{
+          opacity: blackOverlayOpacity,
           backgroundColor: "hsl(var(--overlay-bg))",
         }} />
 
@@ -243,7 +246,7 @@ const Index = () => {
       {/* AI Services content with scale entrance */}
       <motion.div
         className="fixed inset-0 z-[51] pointer-events-none"
-        style={{ 
+        style={{
           opacity: sandalContentOpacity,
           scale: contentScale,
           y: contentY,

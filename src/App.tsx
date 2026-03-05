@@ -13,6 +13,17 @@ import Approach from "./pages/Approach";
 import Collaborators from "./pages/Collaborators";
 import Products from "./pages/Products";
 import LoadingScreen from "./components/LoadingScreen";
+import { useSmoothScroll } from "./hooks/use-smooth-scroll";
+import { useImageCache } from "./hooks/use-image-cache";
+
+// Critical images to preload into memory cache
+import eyeBg from "@/assets/eye-bg.jpg";
+import approachEye from "@/assets/approach-eye.png";
+import founderImg from "@/assets/founder.jpeg";
+import cofounderImg from "@/assets/cofounder.png";
+import developerImg from "@/assets/developer.jpg";
+import prawinImg from "@/assets/prawin.png";
+import niranjaniImg from "@/assets/niranjani.png";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +46,12 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
+  useSmoothScroll();
+
+  // Preload hero image eagerly (above the fold), others during idle time
+  useImageCache([eyeBg], { priority: true });
+  useImageCache([approachEye, founderImg, cofounderImg, developerImg, prawinImg, niranjaniImg]);
+
   const [loading, setLoading] = useState(() => {
     if (window.location.pathname !== "/" || sessionStorage.getItem("loaded")) return false;
     return true;

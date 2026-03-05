@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, MotionValue, useMotionValueEvent } from "framer-motion";
 import { Brain, Cpu, BarChart3, Sparkles, Zap, Globe, ArrowRight, CircleDot, Fingerprint } from "lucide-react";
 import RippleCard from "./RippleCard";
 import eyeBg from "@/assets/eye-bg.jpg";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const aiServices = [
   {
@@ -75,15 +76,60 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeNarrative, setActiveNarrative] = useState(-1);
+  const isVisibleRef = useRef(false);
 
   useMotionValueEvent(opacity, "change", (latest) => {
-    const nowVisible = latest > 0.05;
-    if (nowVisible && !isVisible) {
+    const nowVisible = latest > 0.3;
+    if (nowVisible && !isVisibleRef.current) {
       scrollRef.current?.scrollTo({ top: 0 });
       setActiveNarrative(-1);
     }
+    isVisibleRef.current = nowVisible;
     setIsVisible(nowVisible);
   });
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (!isVisibleRef.current) return;
+      if (e.deltaY < 0 && el.scrollTop <= 0) {
+        e.preventDefault();
+        // Normalize deltaMode: 0=pixel, 1=line(~40px), 2=page
+        const delta =
+          e.deltaMode === 1
+            ? e.deltaY * 40
+            : e.deltaMode === 2
+              ? e.deltaY * window.innerHeight
+              : e.deltaY;
+        window.scrollBy({ top: delta, behavior: 'instant' as ScrollBehavior });
+      }
+    };
+
+    // Touch: track start Y so we can propagate upward swipe at top
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isVisibleRef.current) return;
+      const dy = e.touches[0].clientY - touchStartY;
+      if (dy > 0 && el.scrollTop <= 0) {
+        e.preventDefault();
+        window.scrollBy({ top: -dy * 1.5, behavior: 'instant' as ScrollBehavior });
+      }
+    };
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    el.addEventListener('touchstart', handleTouchStart, { passive: true });
+    el.addEventListener('touchmove', handleTouchMove, { passive: false });
+    return () => {
+      el.removeEventListener('wheel', handleWheel);
+      el.removeEventListener('touchstart', handleTouchStart);
+      el.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
 
 
   const eyeConfig = activeNarrative >= 0
@@ -111,7 +157,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
           opacity: { duration: activeNarrative >= 0 ? 1.8 : 0.6 },
         }}
       >
-        <img
+        <OptimizedImage
           alt=""
           className="w-full h-full object-cover"
           src={eyeBg}
@@ -120,7 +166,9 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
 
       <div
         ref={scrollRef}
+        data-lenis-prevent
         className={`w-full mx-auto px-6 md:px-16 lg:px-24 ${isVisible ? "overflow-y-auto" : "overflow-y-hidden"} max-h-screen py-24 relative z-10 hide-scrollbar ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+        style={{ overscrollBehavior: 'contain' }}
       >
         {/* ===== AI SOLUTIONS SECTION ===== */}
         <motion.div
@@ -183,7 +231,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.5 }}
         >
-          
+
           <span className="inline-block py-2 px-6 border border-primary/30 rounded-full">
             <span className="text-[10px] tracking-[0.5em] uppercase text-primary font-bold">
               The Visionary Perspective
@@ -212,9 +260,8 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
               viewport={{ once: false, amount: 0.4 }}
             >
               <div className={`glass-panel p-12 md:p-20 max-w-2xl relative ${section.align === "center" ? "text-center border-none shadow-none" : "shadow-2xl"}`}>
-                <span className={`text-primary font-display text-6xl opacity-20 ${
-                  section.align === "center" ? "block mb-6" : section.align === "right" ? "absolute -top-10 -right-6" : "absolute -top-10 -left-6"
-                }`}>
+                <span className={`text-primary font-display text-6xl opacity-20 ${section.align === "center" ? "block mb-6" : section.align === "right" ? "absolute -top-10 -right-6" : "absolute -top-10 -left-6"
+                  }`}>
                   {section.num}
                 </span>
                 <div className={section.align === "center" ? "space-y-8" : "space-y-6"}>

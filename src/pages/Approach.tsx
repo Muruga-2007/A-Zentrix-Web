@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import approachEye from "@/assets/approach-eye.png";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const services = [
   {
@@ -52,10 +53,12 @@ const Approach = () => {
                     "linear-gradient(to right, black 60%, transparent 95%)",
                 }}
               >
-                <img
+                <OptimizedImage
                   alt="Detailed realistic eye illustration"
                   className="w-full h-full object-cover object-center scale-110"
                   src={approachEye}
+                  priority
+                  blur={false}
                 />
               </div>
             </motion.div>

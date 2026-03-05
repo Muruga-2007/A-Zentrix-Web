@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import eyeBg from "@/assets/eye-bg.jpg";
+import OptimizedImage from "@/components/OptimizedImage";
 
 interface SectionConfig {
   className: string;
@@ -262,18 +263,18 @@ const Narrative = () => {
         transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
       >
         <div className="relative w-full h-full">
-          <img
+          <OptimizedImage
             alt=""
             className="absolute inset-0 w-full h-full object-cover opacity-40"
             style={{ mixBlendMode: "multiply" }}
             src={eyeBg}
           />
-          <img
+          <OptimizedImage
             alt="Artistic eye"
             className="absolute inset-0 w-full h-full object-cover opacity-80"
             src={eyeBg}
           />
-          <img
+          <OptimizedImage
             alt=""
             className="absolute inset-0 w-full h-full object-cover opacity-50 scale-110"
             style={{ filter: "hue-rotate(0deg) saturate(1.2)" }}
@@ -285,7 +286,8 @@ const Narrative = () => {
       {/* Snap-scroll container */}
       <main
         ref={scrollRef}
-        className="snap-y snap-mandatory h-screen overflow-y-scroll overflow-x-hidden hide-scrollbar"
+        data-lenis-prevent
+        className="snap-y snap-proximity h-screen overflow-y-scroll overflow-x-hidden hide-scrollbar"
       >
         {sections.map((section, i) => (
           <section

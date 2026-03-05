@@ -7,6 +7,7 @@ import cofounderImg from "@/assets/cofounder.png";
 import muruganandamImg from "@/assets/developer.jpg";
 import prawinImg from "@/assets/prawin.png";
 import niranjaniImg from "@/assets/niranjani.png";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const testimonials = [
   {
@@ -56,7 +57,7 @@ const AnimatedTestimonials = ({
 
 
 
-}: {testimonials: Testimonial[];autoplay?: boolean;}) => {
+}: { testimonials: Testimonial[]; autoplay?: boolean; }) => {
   const [active, setActive] = useState(0);
 
   const handleNext = React.useCallback(() => {
@@ -107,7 +108,7 @@ const AnimatedTestimonials = ({
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <img
+                  <OptimizedImage
                     src={testimonial.src}
                     alt={testimonial.name}
                     className="h-full w-full rounded-3xl object-cover"
@@ -128,7 +129,7 @@ const AnimatedTestimonials = ({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}>
-            
+
             <h3 className="text-2xl font-bold text-foreground">
               {testimonials[active].name}
             </h3>
@@ -143,13 +144,13 @@ const AnimatedTestimonials = ({
             <button
               onClick={handlePrev}
               className="group/btn flex h-8 w-8 items-center justify-center rounded-full bg-muted transition-colors hover:bg-accent">
-              
+
               <ArrowLeft className="h-4 w-4 text-foreground transition-transform group-hover/btn:-translate-x-0.5" />
             </button>
             <button
               onClick={handleNext}
               className="group/btn flex h-8 w-8 items-center justify-center rounded-full bg-muted transition-colors hover:bg-accent">
-              
+
               <ArrowRight className="h-4 w-4 text-foreground transition-transform group-hover/btn:translate-x-0.5" />
             </button>
           </div>
