@@ -1,4 +1,4 @@
-import { useRef, useCallback, useState } from "react";
+import { useRef, useState } from "react";
 import { motion, MotionValue, useMotionValueEvent } from "framer-motion";
 import { Brain, Cpu, BarChart3, Sparkles, Zap, Globe, ArrowRight, CircleDot, Fingerprint } from "lucide-react";
 import RippleCard from "./RippleCard";
@@ -85,20 +85,6 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
     setIsVisible(nowVisible);
   });
 
-  const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const atTop = el.scrollTop <= 0;
-    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-
-    // Let page scroll continue when inner container can't scroll further.
-    if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
-      return;
-    }
-
-    e.stopPropagation();
-  }, []);
 
   const eyeConfig = activeNarrative >= 0
     ? narrativeSections[activeNarrative].eye
@@ -134,9 +120,8 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
 
       <div
         ref={scrollRef}
-        onWheel={handleWheel}
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        className={`w-full mx-auto px-6 md:px-16 lg:px-24 ${isVisible ? "overflow-y-auto" : "overflow-y-hidden"} max-h-screen py-24 hide-scrollbar relative z-10 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`w-full mx-auto px-6 md:px-16 lg:px-24 ${isVisible ? "overflow-y-auto" : "overflow-y-hidden"} max-h-screen py-24 relative z-10 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+        style={{ scrollbarWidth: 'thin', scrollbarColor: 'hsl(0 0% 40%) transparent' }}
       >
         {/* ===== AI SOLUTIONS SECTION ===== */}
         <motion.div
