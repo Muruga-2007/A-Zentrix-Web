@@ -116,8 +116,7 @@
     overflow-x: hidden;
   }
 
-  /* Allow explicitly scrollable containers to override */
-  .hide-scrollbar,
+  /* Allow explicitly scrollable containers to opt in */
   [data-allow-scroll] {
     overflow-y: auto !important;
   }
