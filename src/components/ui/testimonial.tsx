@@ -7,7 +7,7 @@ const testimonials = [
   {
     quote:
       "At A-ZENTRIX, we believe in pushing boundaries and turning bold ideas into reality. Innovation isn't just what we do — it's who we are.",
-    name: "Founder",
+    name: "Mohamed Arfeen",
     designation: "Founder & CEO at A-ZENTRIX",
     src: founderImg,
   },
