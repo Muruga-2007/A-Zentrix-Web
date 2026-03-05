@@ -18,19 +18,19 @@ const testimonials = [
   {
     quote: "Building the future requires both vision and execution. At A-ZENTRIX, we bring both to every project we undertake.",
     name: "Ashwin Ragav",
-    designation: "Co-Founder & CTO at A-ZENTRIX",
+    designation: "Co-Founder & Director at A-ZENTRIX",
     src: cofounderImg
   },
   {
     quote: "Great software is built on solid foundations. Every line of code we write is crafted with purpose and precision.",
     name: "Muruganandam",
-    designation: "Lead Developer at A-ZENTRIX",
+    designation: "CTO & Developer at A-ZENTRIX",
     src: muruganandamImg
   },
   {
     quote: "Design and technology should work in harmony. We create experiences that are both beautiful and functional.",
     name: "Prawin",
-    designation: "UI/UX Designer at A-ZENTRIX",
+    designation: "Developer & UI/UX Designer at A-ZENTRIX",
     src: prawinImg
   },
   {
