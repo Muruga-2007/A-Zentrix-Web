@@ -86,22 +86,14 @@
     scroll-behavior: smooth;
     overflow-x: hidden;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: hsl(0 0% 30%) transparent;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   html::-webkit-scrollbar {
-    width: 6px;
-  }
-  html::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  html::-webkit-scrollbar-thumb {
-    background: hsl(0 0% 30%);
-    border-radius: 3px;
-  }
-  html::-webkit-scrollbar-thumb:hover {
-    background: hsl(0 53% 43%);
+    width: 0;
+    height: 0;
+    display: none;
   }
 
   body {
