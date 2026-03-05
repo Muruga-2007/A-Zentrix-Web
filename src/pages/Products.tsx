@@ -84,10 +84,89 @@ const audiences = [
   { icon: Heart, label: "Anyone who needs someone at 3am" },
 ];
 
+import emailjs from "@emailjs/browser";
+
 const WishlistCTA = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [count, setCount] = useState(856);
   const [joined, setJoined] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Initialize from localStorage to persist across refreshes
+  const [registeredEmails, setRegisteredEmails] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem("zentrix_leads");
+      return saved ? JSON.parse(saved) : ["test@example.com"];
+    } catch {
+      return ["test@example.com"];
+    }
+  });
+
+  const handleJoin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (!name.trim()) {
+      setError("Please enter your name.");
+      return;
+    }
+
+    if (!email || !email.includes("@")) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    const lowerEmail = email.toLowerCase();
+    if (registeredEmails.includes(lowerEmail)) {
+      setError("This email is already on the waitlist!");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // ── EmailJS Configuration ──────────────────────────────────────────────
+    // Service ID and Public Key are already set from your EmailJS dashboard.
+    // Replace REPLACE_TEMPLATE_ID below with your actual Template ID
+    // (find it in: EmailJS Dashboard → Email Templates → Auto-Reply → Settings tab)
+    const serviceId = "service_xqeyp1a";
+    const templateId = "template_zmka8ll";
+    const publicKey = "pCZH5YTzcbLktFmC9";
+
+    // These variable names must match your EmailJS template exactly:
+    // {{name}}  → user's name
+    // {{email}} → user's email (used in "To Email" field of the template)
+    // {{title}} → the subject / context line in the auto-reply
+    const templateParams = {
+      name: name,
+      email: email,
+      title: "Joining the A-Zentrix Mental Wellness Waitlist",
+    };
+
+    try {
+      // @emailjs/browser v4 requires publicKey as an options object
+      await emailjs.send(serviceId, templateId, templateParams, { publicKey });
+
+      const updatedList = [...registeredEmails, lowerEmail];
+      setRegisteredEmails(updatedList);
+      localStorage.setItem("zentrix_leads", JSON.stringify(updatedList));
+
+      setJoined(true);
+      setCount((prev) => prev + 1);
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error
+        ? err.message
+        : typeof err === "object" && err !== null && "text" in err
+          ? String((err as { text: unknown }).text)
+          : JSON.stringify(err);
+      console.error("EmailJS Error:", errMsg);
+      setError(`Error: ${errMsg}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -110,19 +189,29 @@ const WishlistCTA = () => {
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
-              onClick={() => setShowPopup(false)}
+              onClick={() => {
+                setShowPopup(false);
+                setError("");
+                setName("");
+                setEmail("");
+              }}
             />
 
             {/* Modal */}
             <motion.div
-              className="relative bg-card border border-border rounded-2xl p-8 md:p-10 max-w-md w-full shadow-2xl text-center z-10"
+              className="relative bg-card border border-border rounded-2xl p-8 md:p-10 max-w-sm w-full shadow-2xl text-center z-10"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
             >
               <button
-                onClick={() => setShowPopup(false)}
+                onClick={() => {
+                  setShowPopup(false);
+                  setError("");
+                  setName("");
+                  setEmail("");
+                }}
                 className="absolute top-4 right-4 text-muted-foreground hover:text-foreground text-lg"
               >
                 ✕
@@ -150,22 +239,59 @@ const WishlistCTA = () => {
               </div>
 
               {!joined ? (
-                <button
-                  onClick={() => {
-                    setJoined(true);
-                    setCount((prev) => prev - 1);
-                  }}
-                  className="w-full py-4 bg-primary text-primary-foreground rounded-full text-sm tracking-widest uppercase font-medium hover:opacity-90 transition-opacity duration-300"
-                >
-                  Join Waitlist
-                </button>
+                <form onSubmit={handleJoin} className="space-y-4">
+                  <div className="space-y-3">
+                    <input
+                      type="text"
+                      placeholder="Your Name"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (error) setError("");
+                      }}
+                      className="w-full px-4 py-3 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                    <input
+                      type="email"
+                      placeholder="Your Email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (error) setError("");
+                      }}
+                      className="w-full px-4 py-3 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                  </div>
+
+                  {error && (
+                    <motion.p
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-xs text-red-500 font-medium"
+                    >
+                      {error}
+                    </motion.p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 bg-primary text-primary-foreground rounded-full text-sm tracking-widest uppercase font-medium hover:opacity-90 transition-opacity duration-300 disabled:opacity-50"
+                  >
+                    {isSubmitting ? "Joining..." : "Join Waitlist"}
+                  </button>
+                </form>
               ) : (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="py-4 text-primary font-display font-medium tracking-wide"
+                  className="py-6 text-primary font-display font-medium tracking-wide flex flex-col items-center gap-2"
                 >
-                  🎉 You're on the list!
+                  <span className="text-3xl">🎉</span>
+                  <span>Thanks, {name.split(' ')[0]}!</span>
+                  <p className="text-xs text-muted-foreground font-body tracking-normal mt-2">
+                    You're officially on the list. We'll be in touch!
+                  </p>
                 </motion.div>
               )}
             </motion.div>
