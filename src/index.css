@@ -105,12 +105,6 @@
   body {
     @apply bg-background text-foreground font-body;
     overflow-x: hidden;
-    overflow-y: auto;
-  }
-
-  /* Hide scrollbar on inner containers to prevent double scrollbar */
-  body > div {
-    overflow-x: hidden;
   }
 
   /* Smooth transitions on all interactive elements */
