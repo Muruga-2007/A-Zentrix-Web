@@ -88,9 +88,15 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
   const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
     const el = scrollRef.current;
     if (!el) return;
-    if (e.deltaY < 0 && el.scrollTop <= 0) {
+
+    const atTop = el.scrollTop <= 0;
+    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+
+    // Let page scroll continue when inner container can't scroll further.
+    if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
       return;
     }
+
     e.stopPropagation();
   }, []);
 
