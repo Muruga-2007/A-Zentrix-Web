@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -29,14 +29,6 @@ const services = [
 
 const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (window.location.hash === "#solutions") {
-      setTimeout(() => {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-      }, 100);
-    }
-  }, []);
   const { scrollYProgress: rawProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -50,8 +42,6 @@ const Index = () => {
   const eyeScale = useTransform(scrollYProgress, [0, 0.33, 0.66, 0.78, 0.88, 0.95], [1, 1.05, 1, 1.6, 4, 6]);
   const blackOverlayOpacity = useTransform(scrollYProgress, [0.80, 0.90], [0, 1]);
   const sandalContentOpacity = useTransform(scrollYProgress, [0.90, 0.98], [0, 1]);
-
-
 
   // Content scale for a subtle zoom-in feel
   const contentScale = useTransform(scrollYProgress, [0.90, 1], [0.92, 1]);
@@ -68,7 +58,6 @@ const Index = () => {
       "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
       "linear-gradient(to right, transparent 10%, black 30%, black 70%, transparent 90%)",
       "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)"]
-
   );
   const bgGradient = useTransform(
     scrollYProgress,
@@ -78,7 +67,6 @@ const Index = () => {
       "linear-gradient(to left, hsl(var(--background)) 0%, transparent 30%)",
       "linear-gradient(to left, transparent 0%, transparent 100%)",
       "linear-gradient(to left, transparent 0%, transparent 100%)"]
-
   );
 
   return (
@@ -93,7 +81,7 @@ const Index = () => {
 
       {/* ===== FLOATING EYE - scroll-linked ===== */}
       <motion.div
-        className="fixed top-0 h-full w-full md:w-[65%] pointer-events-none z-0 will-change-transform"
+        className="fixed top-0 h-full w-full md:w-[65%] pointer-events-none z-0"
         style={{
           x: eyeX,
           opacity: eyeOpacity,
@@ -102,7 +90,7 @@ const Index = () => {
         }}>
 
         <motion.div
-          className="w-full h-full relative will-change-transform"
+          className="w-full h-full relative"
           style={{
             maskImage: maskGradient,
             WebkitMaskImage: maskGradient
@@ -142,7 +130,7 @@ const Index = () => {
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <a
-                  href="#approach"
+                  href="/solutions"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-foreground rounded-lg text-background hover:opacity-90 transition-all duration-300 shadow-lg group min-w-[180px]">
 
                   <span className="font-body font-medium text-sm tracking-wide">Explore Solutions</span>
@@ -244,7 +232,7 @@ const Index = () => {
 
       {/* Black overlay with radial reveal from pupil */}
       <motion.div
-        className="fixed inset-0 pointer-events-none z-50 will-change-[opacity]"
+        className="fixed inset-0 pointer-events-none z-50"
         style={{
           opacity: blackOverlayOpacity,
           backgroundColor: "hsl(var(--overlay-bg))",

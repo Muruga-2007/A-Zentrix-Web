@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import Approach from "./pages/Approach";
 import Collaborators from "./pages/Collaborators";
 import Products from "./pages/Products";
+import Solutions from "./pages/Solutions";
 import LoadingScreen from "./components/LoadingScreen";
 import { useSmoothScroll } from "./hooks/use-smooth-scroll";
 import { useImageCache } from "./hooks/use-image-cache";
@@ -38,6 +39,7 @@ const AnimatedRoutes = () => {
         <Route path="/approach" element={<Approach />} />
         <Route path="/collaborators" element={<Collaborators />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/solutions" element={<Solutions />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

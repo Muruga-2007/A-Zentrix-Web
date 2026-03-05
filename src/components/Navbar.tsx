@@ -6,9 +6,9 @@ import ScrambleText from "@/components/ScrambleText";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "OUR PRODUCCTS", href: "/products" },
-  { label: "Solution", href: "/#solutions" },
+  { label: "Solution", href: "/solutions" },
   { label: "Collaborators", href: "/collaborators" },
-  { label: "About", href: "/#approach" },
+  { label: "About", href: "#approach" },
 ];
 
 const Navbar = () => {
