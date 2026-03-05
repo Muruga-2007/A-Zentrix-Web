@@ -285,7 +285,7 @@ const Narrative = () => {
       {/* Snap-scroll container */}
       <main
         ref={scrollRef}
-        className="snap-y snap-mandatory h-screen overflow-y-scroll overflow-x-hidden"
+        className="snap-y snap-mandatory h-screen overflow-y-scroll overflow-x-hidden hide-scrollbar"
       >
         {sections.map((section, i) => (
           <section
