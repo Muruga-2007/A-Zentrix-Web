@@ -105,17 +105,19 @@
     background: hsl(0 53% 43%);
   }
 
-  /* ── Lock body & root so only html scrolls ── */
+  /* ── Let document flow naturally so pages can scroll ── */
   body {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
     @apply bg-background text-foreground font-body;
   }
 
   #root {
     min-height: 100%;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   /* ── Kill scrollbars on every other element ── */
