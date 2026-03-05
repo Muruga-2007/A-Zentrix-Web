@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import founderImg from "@/assets/founder.jpeg";
+import cofounderImg from "@/assets/cofounder.png";
 
 const testimonials = [
   {
@@ -10,6 +11,13 @@ const testimonials = [
     name: "Mohamed Arfeen",
     designation: "Founder & CEO at A-ZENTRIX",
     src: founderImg,
+  },
+  {
+    quote:
+      "Excellence is not a destination but a continuous journey. At A-ZENTRIX, we strive to deliver transformative solutions that make a lasting impact.",
+    name: "Ashwin Ragav",
+    designation: "Co-Founder & Director at A-ZENTRIX",
+    src: cofounderImg,
   },
   {
     quote:
