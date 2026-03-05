@@ -8,33 +8,39 @@ import OptimizedImage from "@/components/OptimizedImage";
 const aiServices = [
   {
     icon: Brain,
-    title: "AI Strategy & Consulting",
-    description: "End-to-end AI roadmaps tailored to your business goals, from ideation to deployment.",
-  },
-  {
-    icon: Cpu,
-    title: "Machine Learning Solutions",
-    description: "Custom ML models for predictive analytics, NLP, and computer vision applications.",
+    title: "AI & Machine Learning",
+    description: "Predictive models and intelligent automation for business transformation.",
+    color: "from-blue-500/20 to-cyan-500/20",
   },
   {
     icon: BarChart3,
-    title: "Intelligent Data Analytics",
-    description: "Transform raw data into actionable insights with AI-powered dashboards and reporting.",
-  },
-  {
-    icon: Sparkles,
-    title: "Generative AI Integration",
-    description: "Leverage LLMs, image generation, and creative AI to supercharge your workflows.",
-  },
-  {
-    icon: Zap,
-    title: "Process Automation",
-    description: "Streamline operations with intelligent automation that learns and adapts over time.",
+    title: "AI-Powered Analytics",
+    description: "Harnessing the power of AI to transform raw data into actionable insights.",
+    color: "from-purple-500/20 to-pink-500/20",
   },
   {
     icon: Globe,
-    title: "AI-Powered Digital Experiences",
-    description: "Build conversational interfaces, recommendation engines, and personalized user journeys.",
+    title: "Cloud Solutions",
+    description: "Scalable infrastructure and cloud migration optimized for performance.",
+    color: "from-orange-500/20 to-red-500/20",
+  },
+  {
+    icon: Zap,
+    title: "Cybersecurity Services",
+    description: "Protecting your business from potential risks with AI-driven threat detection.",
+    color: "from-amber-500/20 to-yellow-500/20",
+  },
+  {
+    icon: Cpu,
+    title: "Custom Software",
+    description: "High-performance web and enterprise applications tailored to your needs.",
+    color: "from-green-500/20 to-emerald-500/20",
+  },
+  {
+    icon: Sparkles,
+    title: "AI-Powered Automation",
+    description: "Streamline workflows and eliminate repetitive tasks with our frameworks.",
+    color: "from-indigo-500/20 to-blue-500/20",
   },
 ];
 

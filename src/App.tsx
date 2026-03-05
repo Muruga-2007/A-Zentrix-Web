@@ -66,7 +66,9 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
+        <AnimatePresence>
+          {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
+        </AnimatePresence>
         <BrowserRouter>
           <ScrollToTop />
           <AnimatedRoutes />

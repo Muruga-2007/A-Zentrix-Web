@@ -9,21 +9,21 @@ import OptimizedImage from "@/components/OptimizedImage";
 const services = [
   {
     icon: CircleDot,
-    title: "Digital Strategy",
+    title: "AI & Machine Learning",
     description:
-      "Navigating complex digital landscapes with surgical precision and creative foresight to architect conversion-focused user journeys.",
+      "Accelerate automation, improve decision-making, and maximize operational efficiency with intelligent technology.",
   },
   {
     icon: Fingerprint,
-    title: "Brand Identity",
+    title: "Custom Software Development",
     description:
-      "Forging the soul of your enterprise through a cohesive visual language that communicates authority and elegance simultaneously.",
+      "Deliver high-performance, scalable software solutions customized to meet your unique business requirements.",
   },
   {
     icon: Eye,
-    title: "Visual Intelligence",
+    title: "AI-Powered Automation",
     description:
-      "Transforming raw data into compelling high-art narratives, enabling stakeholders to visualize growth and performance with clarity.",
+      "Streamline repetitive tasks, minimizing manual work and enhancing operational efficiency.",
   },
 ];
 
@@ -102,10 +102,7 @@ const Approach = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.55 }}
                 >
-                  We perceive what others overlook. Our methodology combines
-                  artistic intuition with data-driven strategy to craft
-                  corporate identities that resonate on a deeper, more impactful
-                  frequency.
+                  A-Zentrix provides advanced AI solutions designed to transform business operations. Our innovative technology boosts efficiency, streamlines automation, and drives sustainable growth—helping you achieve more with fewer resources.
                 </motion.p>
 
                 <div className="grid grid-cols-1 gap-10 pt-10">

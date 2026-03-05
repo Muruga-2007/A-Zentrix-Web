@@ -77,7 +77,7 @@ const OptimizedImage = ({
                 filter: blur && !loaded ? "blur(20px)" : "none",
                 transition: `filter ${fadeDuration}s ease-out`,
             }}
-            initial={alreadyCached ? { opacity: 1 } : { opacity: 0 }}
+            initial={alreadyCached ? { opacity: 1, filter: "none" } : { opacity: 0 }}
             animate={{ opacity: loaded ? 1 : 0 }}
             transition={{ duration: alreadyCached ? 0 : fadeDuration, ease: "easeOut" }}
             onLoad={() => setLoaded(true)}

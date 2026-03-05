@@ -71,11 +71,11 @@ const sections = [
           </span>
         </div>
         <h1 className="text-7xl md:text-[10rem] font-display leading-[0.85] tracking-tighter uppercase text-foreground">
-          Unseen<br />
-          <span className="text-primary">Narratives</span>
+          AI<br />
+          <span className="text-primary">Assistant</span>
         </h1>
         <p className="max-w-xl mx-auto text-lg md:text-xl font-light text-muted-foreground tracking-widest uppercase">
-          Scroll to unveil the depth of perception.
+          Pioneering AI and Tech Solutions
         </p>
       </div>
     ),
@@ -90,17 +90,15 @@ const sections = [
         </span>
         <div className="space-y-6">
           <h2 className="text-5xl font-display uppercase tracking-tight leading-none text-foreground">
-            Digital<br />Architecture
+            Our<br />Mission
           </h2>
           <div className="w-12 h-1 bg-primary" />
           <p className="text-xl text-muted-foreground font-light leading-relaxed">
-            We don't just build platforms; we design digital ecosystems that
-            breathe. Our strategy maps the invisible paths where users find
-            meaning.
+            To deliver AI-powered solutions that drive efficiency, automate complexity, and scale business growth. We connect innovation with real-world application.
           </p>
           <div className="flex items-center gap-4 text-xs tracking-[0.3em] uppercase font-bold text-primary pt-4">
             <CircleDot className="w-5 h-5" />
-            Precision Engineering
+            Impactful Technology
           </div>
         </div>
       </div>
@@ -116,16 +114,15 @@ const sections = [
         </span>
         <div className="space-y-6">
           <h2 className="text-5xl font-display uppercase tracking-tight leading-none text-foreground">
-            The Soul of<br />Identity
+            Our<br />Vision
           </h2>
           <div className="w-12 h-1 bg-primary" />
           <p className="text-xl text-muted-foreground font-light leading-relaxed">
-            A brand is more than a mark—it is a frequency. We help brands
-            discover their authentic resonance and amplify it across the noise.
+            To lead the global shift toward intelligent enterprise solutions by embedding AI across industries, creating a future powered by data intelligence.
           </p>
           <div className="flex items-center gap-4 text-xs tracking-[0.3em] uppercase font-bold text-primary pt-4">
             <Fingerprint className="w-5 h-5" />
-            Genetic Branding
+            Next-Gen Software
           </div>
         </div>
       </div>
@@ -141,11 +138,10 @@ const sections = [
         </span>
         <div className="space-y-8">
           <h2 className="text-5xl md:text-7xl font-display uppercase tracking-tight text-foreground">
-            Intelligence<br />Visualized
+            Our<br />Journey
           </h2>
           <p className="text-xl text-muted-foreground font-light max-w-lg mx-auto leading-relaxed">
-            Complexity distilled into clarity. We transform abstract data into
-            visceral visual experiences that inspire action.
+            A-Zentrix was founded to simplify the adoption of AI and automation for businesses of all sizes, evolving into a full-stack solution provider.
           </p>
           <a
             href="/"

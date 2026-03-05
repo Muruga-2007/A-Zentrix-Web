@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { ArrowRight, Fingerprint, Eye, CircleDot } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -12,23 +12,31 @@ import OptimizedImage from "@/components/OptimizedImage";
 const services = [
   {
     icon: CircleDot,
-    title: "Digital Strategy",
-    description: "Navigating complex digital landscapes with foresight and architectural precision."
+    title: "AI & Machine Learning",
+    description: "Accelerate automation, improve decision-making, and maximize operational efficiency with intelligent technology."
   },
   {
     icon: Fingerprint,
-    title: "Brand Identity",
-    description: "Forging the soul of your brand through cohesive visual narratives and storytelling."
+    title: "Custom Software Development",
+    description: "Deliver high-performance, scalable software solutions customized to meet your unique business requirements."
   },
   {
     icon: Eye,
-    title: "Visual Intelligence",
-    description: "Transforming complex datasets into compelling artistic visuals that drive decisions."
+    title: "AI-Powered Automation",
+    description: "Streamline repetitive tasks, minimizing manual work and enhancing operational efficiency."
   }];
 
 
 const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.location.hash === "#solutions") {
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }, 100);
+    }
+  }, []);
   const { scrollYProgress: rawProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -79,7 +87,7 @@ const Index = () => {
       className="relative bg-background text-foreground font-body min-h-screen flex flex-col transition-colors duration-500">
 
       {/* Grain overlay */}
-      <div className="fixed inset-0 bg-grain pointer-events-none z-0" />
+      <div className="fixed inset-0 bg-grain pointer-events-none z-[1]" />
 
       <Navbar />
 
@@ -94,7 +102,7 @@ const Index = () => {
         }}>
 
         <motion.div
-          className="w-full h-full relative will-change-[mask-image]"
+          className="w-full h-full relative will-change-transform"
           style={{
             maskImage: maskGradient,
             WebkitMaskImage: maskGradient
@@ -128,7 +136,7 @@ const Index = () => {
                   <ScrambleText text="A-ZENTRIX" />
                 </h1>
                 <p className="text-muted-foreground font-light text-lg md:text-xl tracking-wide leading-relaxed max-w-lg">
-                  Bridging the gap between creative vision and corporate reality. We provide high-end visual solutions for the modern enterprise.
+                  A-Zentrix provides advanced AI solutions designed to transform business operations. Our innovative technology boosts efficiency, streamlines automation, and drives sustainable growth.
                 </p>
               </div>
 

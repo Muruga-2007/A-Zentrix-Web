@@ -41,7 +41,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   useEffect(() => {
     const holdTimer = setTimeout(() => setPhase("hold"), 200);
     const exitTimer = setTimeout(() => setPhase("exit"), 1300);
-    const doneTimer = setTimeout(() => onComplete(), 1800);
+    const doneTimer = setTimeout(() => onComplete(), 1750);
     return () => {
       clearTimeout(holdTimer);
       clearTimeout(exitTimer);
