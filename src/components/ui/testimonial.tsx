@@ -129,7 +129,8 @@ const AnimatedTestimonials = ({
                     src={testimonial.src}
                     alt={testimonial.name}
                     draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-top"
+                    className="h-full w-full rounded-3xl object-cover"
+                    style={{ objectPosition: "center 20%" }}
                     onError={(e) => {
                       e.currentTarget.src = `https://placehold.co/500x500/e2e8f0/64748b?text=${testimonial.name.charAt(0)}`;
                       e.currentTarget.onerror = null;
