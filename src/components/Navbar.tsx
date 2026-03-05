@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import ScrambleText from "@/components/ScrambleText";
 
 const navLinks = [
-  { label: "Gallery", href: "#" },
+  { label: "Home", href: "#" },
   { label: "Roadmap", href: "#" },
   { label: "Solution", href: "#" },
   { label: "Collaborators", href: "#" },
