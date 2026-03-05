@@ -130,7 +130,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
         ref={scrollRef}
         onWheel={handleWheel}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        className={`w-full max-w-6xl mx-auto px-6 md:px-12 overflow-y-auto max-h-screen py-24 [&::-webkit-scrollbar]:!hidden [&::-webkit-scrollbar]:!w-0 [&::-webkit-scrollbar]:!h-0 relative z-10 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`w-full max-w-6xl mx-auto px-6 md:px-12 ${isVisible ? "overflow-y-auto" : "overflow-y-hidden"} max-h-screen py-24 hide-scrollbar relative z-10 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
       >
         {/* ===== AI SOLUTIONS SECTION ===== */}
         <motion.div
