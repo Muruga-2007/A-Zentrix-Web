@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto"
+      className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 md:px-16 lg:px-24 py-6 w-full mx-auto"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}

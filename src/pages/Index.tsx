@@ -114,7 +114,7 @@ const Index = () => {
 
       {/* ===== HERO SECTION ===== */}
       <motion.section className="relative min-h-screen flex flex-col justify-center" style={{ opacity: heroTextOpacity }}>
-        <div className="relative z-10 pt-24 pb-12 px-4 md:px-12 w-full max-w-7xl mx-auto">
+        <div className="relative z-10 pt-24 pb-12 px-6 md:px-16 lg:px-24 w-full mx-auto">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="flex flex-col items-start gap-8 animate-fade-in relative z-20 max-w-2xl">
               <div className="space-y-6">
@@ -163,7 +163,7 @@ const Index = () => {
 
       {/* ===== APPROACH SECTION ===== */}
       <motion.section id="approach" className="relative min-h-screen flex flex-col justify-center" style={{ opacity: approachTextOpacity }}>
-        <div className="relative z-10 py-24 px-4 md:px-12 w-full max-w-7xl mx-auto">
+        <div className="relative z-10 py-24 px-6 md:px-16 lg:px-24 w-full mx-auto">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="hidden md:block" />
             <motion.div

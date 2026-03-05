@@ -124,8 +124,8 @@ const Products = () => {
         <Navbar />
 
         {/* ── Hero ── */}
-        <section className="relative z-10 pt-36 pb-24 px-6 md:px-12 lg:px-20 min-h-[70vh] flex items-center justify-center">
-          <div className="max-w-7xl mx-auto text-center w-full">
+        <section className="relative z-10 pt-36 pb-24 px-6 md:px-16 lg:px-24 min-h-[70vh] flex items-center justify-center">
+          <div className="w-full text-center">
             <motion.p
               className="text-xs tracking-[0.4em] uppercase text-muted-foreground mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -155,8 +155,8 @@ const Products = () => {
         </section>
 
         {/* ── What We Are ── */}
-        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
+        <section className="relative z-10 py-24 px-6 md:px-16 lg:px-24 border-t border-border">
+          <div className="w-full grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -187,8 +187,8 @@ const Products = () => {
         </section>
 
         {/* ── The Problem ── */}
-        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-destructive/5 to-transparent">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative z-10 py-24 px-6 md:px-16 lg:px-24 bg-gradient-to-b from-destructive/5 to-transparent">
+          <div className="w-full">
             <motion.div
               className="mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -231,8 +231,8 @@ const Products = () => {
         </section>
 
         {/* ── How It Works ── */}
-        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative z-10 py-24 px-6 md:px-16 lg:px-24 border-t border-border">
+          <div className="w-full">
             <motion.div
               className="mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -294,8 +294,8 @@ const Products = () => {
         </section>
 
         {/* ── Who We Serve ── */}
-        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-secondary/5 to-transparent">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
+        <section className="relative z-10 py-24 px-6 md:px-16 lg:px-24 bg-gradient-to-b from-secondary/5 to-transparent">
+          <div className="w-full grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -336,8 +336,8 @@ const Products = () => {
         </section>
 
         {/* ── The Market ── */}
-        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative z-10 py-24 px-6 md:px-16 lg:px-24 border-t border-border">
+          <div className="w-full">
             <motion.div
               className="mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -377,8 +377,8 @@ const Products = () => {
         </section>
 
         {/* ── Business Model / Pricing ── */}
-        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-primary/5 to-transparent">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative z-10 py-24 px-6 md:px-16 lg:px-24 bg-gradient-to-b from-primary/5 to-transparent">
+          <div className="w-full">
             <motion.div
               className="mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -437,8 +437,8 @@ const Products = () => {
         </section>
 
         {/* ── Why Now ── */}
-        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
+        <section className="relative z-10 py-24 px-6 md:px-16 lg:px-24 border-t border-border">
+          <div className="w-full grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -500,9 +500,9 @@ const Products = () => {
         </section>
 
         {/* ── Vision CTA ── */}
-        <section className="relative z-10 py-32 px-6 md:px-12 lg:px-20">
+        <section className="relative z-10 py-32 px-6 md:px-16 lg:px-24">
           <motion.div
-            className="max-w-4xl mx-auto text-center"
+            className="w-full max-w-5xl mx-auto text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

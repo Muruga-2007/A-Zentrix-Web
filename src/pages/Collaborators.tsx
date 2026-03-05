@@ -24,7 +24,7 @@ const Collaborators = () => {
             />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <div className="relative z-10 w-full px-6 md:px-16 lg:px-24">
             <motion.div
               className="text-center mb-8"
               initial={{ opacity: 0, y: 20 }}

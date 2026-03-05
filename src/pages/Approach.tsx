@@ -35,7 +35,7 @@ const Approach = () => {
         <Navbar />
 
         <main className="flex-grow flex items-center relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 w-full min-h-[85vh] items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-full min-h-[85vh] items-center px-0">
             {/* Eye image - left side */}
             <motion.div
               className="relative h-full w-full hidden md:block"
@@ -62,7 +62,7 @@ const Approach = () => {
 
             {/* Content - right side */}
             <motion.div
-              className="px-8 md:px-20 py-24 flex flex-col justify-center max-w-3xl"
+              className="px-8 md:px-16 lg:px-24 py-24 flex flex-col justify-center"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
