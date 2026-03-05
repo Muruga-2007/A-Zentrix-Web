@@ -36,7 +36,7 @@ const testimonials = [
   {
     quote: "Innovation thrives when diverse perspectives come together. Our collaborative approach drives exceptional results.",
     name: "Niranjani Priya",
-    designation: "Project Manager at A-ZENTRIX",
+    designation: "Research & Development Head at A-ZENTRIX",
     src: niranjaniImg
   }
 ];
