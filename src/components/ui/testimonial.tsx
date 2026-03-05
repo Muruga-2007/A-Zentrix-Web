@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import founderImg from "@/assets/founder.jpeg";
 import cofounderImg from "@/assets/cofounder.png";
+import developerImg from "@/assets/developer.jpg";
 
 const testimonials = [
   {
@@ -18,6 +19,13 @@ const testimonials = [
     name: "Ashwin Ragav",
     designation: "Co-Founder & Director at A-ZENTRIX",
     src: cofounderImg,
+  },
+  {
+    quote:
+      "Building robust and scalable solutions is at the heart of what I do. Every line of code is an opportunity to create something meaningful.",
+    name: "Muruganandam",
+    designation: "Developer at A-ZENTRIX",
+    src: developerImg,
   },
   {
     quote:
