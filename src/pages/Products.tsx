@@ -1,90 +1,136 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Layers, Zap, Shield, BarChart3, Globe, Cpu } from "lucide-react";
+import {
+  ArrowRight,
+  Brain,
+  Eye,
+  MessageSquare,
+  Volume2,
+  Users,
+  Shield,
+  TrendingUp,
+  Globe,
+  Zap,
+  Heart,
+  BarChart3,
+  Building2,
+  GraduationCap,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
-
-const products = [
-  {
-    id: "zentrix-platform",
-    name: "ZENTRIX Platform",
-    tagline: "Enterprise-grade digital transformation engine",
-    description:
-      "A unified SaaS platform that orchestrates your entire digital ecosystem — from workflow automation to real-time analytics. Built for teams that refuse to compromise on performance.",
-    features: [
-      {
-        icon: Layers,
-        title: "Modular Architecture",
-        desc: "Plug-and-play modules that scale with your business needs.",
-      },
-      {
-        icon: Zap,
-        title: "Real-time Processing",
-        desc: "Sub-millisecond data processing for mission-critical operations.",
-      },
-      {
-        icon: Shield,
-        title: "Enterprise Security",
-        desc: "SOC 2 compliant with end-to-end encryption and role-based access.",
-      },
-    ],
-    gradient: "from-primary/10 via-transparent to-secondary/10",
-    accent: "primary",
-  },
-  {
-    id: "zentrix-analytics",
-    name: "ZENTRIX Analytics",
-    tagline: "Intelligence that drives decisions",
-    description:
-      "Transform raw data into actionable insights with our AI-powered analytics suite. Visualize trends, predict outcomes, and automate reporting — all from a single dashboard.",
-    features: [
-      {
-        icon: BarChart3,
-        title: "Predictive Insights",
-        desc: "AI-driven forecasting that learns from your business patterns.",
-      },
-      {
-        icon: Globe,
-        title: "Multi-source Integration",
-        desc: "Connect 200+ data sources for a unified business view.",
-      },
-      {
-        icon: Cpu,
-        title: "Smart Automation",
-        desc: "Automated reporting and alerts tailored to your KPIs.",
-      },
-    ],
-    gradient: "from-secondary/10 via-transparent to-primary/10",
-    accent: "secondary",
-  },
-];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, delay: i * 0.15, ease: [0.23, 1, 0.32, 1] as const },
+    transition: { duration: 0.8, delay: i * 0.12, ease: [0.23, 1, 0.32, 1] as const },
   }),
 };
+
+const stats = [
+  { value: "0.3", label: "Psychiatrists per 100K in India", sub: "vs WHO recommended 3" },
+  { value: "170K", label: "Suicide deaths in India", sub: "in 2024 alone" },
+  { value: "90%", label: "Never receive support", sub: "of those who need it" },
+  { value: "₹2K–8K", label: "Per therapy session", sub: "unaffordable for most" },
+];
+
+const pipeline = [
+  {
+    step: "01",
+    icon: Eye,
+    title: "Emotion Detection",
+    description:
+      "OpenCV activates the camera. DeepFace analyzes 68 facial landmarks in real time, identifying dominant emotions — anxiety, sadness, anger, fear — with over 92% accuracy.",
+  },
+  {
+    step: "02",
+    icon: MessageSquare,
+    title: "Language Understanding",
+    description:
+      "A proprietary NLP engine processes the user's words — analyzing tone, sentiment, context, and emotional intensity simultaneously.",
+  },
+  {
+    step: "03",
+    icon: Brain,
+    title: "AI Response Generation",
+    description:
+      "Google Gemini AI synthesizes the emotional state and conversational context into a single, personalized, therapeutically-informed response in real time.",
+  },
+  {
+    step: "04",
+    icon: Volume2,
+    title: "Voice Output",
+    description:
+      "pyttsx3 converts the response to natural speech — because sometimes reading feels like too much effort.",
+  },
+];
+
+const pricing = [
+  {
+    name: "Free Tier",
+    price: "₹0",
+    period: "forever",
+    description: "5 sessions/month — building habit and driving word-of-mouth.",
+    highlight: false,
+  },
+  {
+    name: "Individual Premium",
+    price: "₹434",
+    period: "/month",
+    description:
+      "Unlimited sessions, emotion history, and full feature access — less than one therapy session.",
+    highlight: true,
+  },
+  {
+    name: "SME Plan",
+    price: "₹12,000",
+    period: "/month",
+    description:
+      "10–200 employees with HR dashboards, anonymous analytics, and team stress monitoring.",
+    highlight: false,
+  },
+  {
+    name: "Enterprise",
+    price: "₹85,000",
+    period: "/month",
+    description:
+      "HRMS integration, custom AI personas, API access, and dedicated account management.",
+    highlight: false,
+  },
+];
+
+const markets = [
+  { icon: TrendingUp, value: "₹43.41T", label: "Global Mental Health Market" },
+  { icon: Globe, value: "₹6.07T", label: "Digital Mental Health (25% CAGR)" },
+  { icon: BarChart3, value: "₹87–174B", label: "Our Serviceable Market (5–10%)" },
+  { icon: Building2, value: "₹8.68T", label: "Corporate Wellness by 2028" },
+];
+
+const audiences = [
+  { icon: GraduationCap, label: "Students under academic pressure" },
+  { icon: Building2, label: "Professionals facing burnout" },
+  { icon: Globe, label: "Rural communities with no clinic access" },
+  { icon: Heart, label: "Anyone who needs someone at 3am" },
+];
 
 const Products = () => {
   return (
     <PageTransition>
-      <div className="bg-background text-foreground font-body min-h-screen flex flex-col overflow-x-hidden relative">
+      <div className="bg-background text-foreground font-body min-h-screen flex flex-col relative">
         <div className="fixed inset-0 bg-grain pointer-events-none z-0" />
         <Navbar />
 
-        {/* Hero Section */}
-        <section className="relative z-10 pt-32 pb-20 px-6 md:px-12 lg:px-20">
+        {/* ── Hero ── */}
+        <section className="relative z-10 pt-36 pb-24 px-6 md:px-12 lg:px-20">
           <div className="max-w-5xl mx-auto text-center">
             <motion.p
-              className="text-xs tracking-[0.4em] uppercase text-muted-foreground mb-4"
+              className="text-xs tracking-[0.4em] uppercase text-muted-foreground mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              Our Products
+              Our Product
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-display font-medium tracking-tight leading-[1.1] mb-6"
@@ -92,173 +138,351 @@ const Products = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              Tools built for the{" "}
-              <span className="text-primary">future</span>
+              Mental Wellness{" "}
+              <span className="text-primary">System</span>
             </motion.h1>
             <motion.p
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed italic"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Precision-engineered software that transforms how enterprises
-              operate, analyze, and grow.
+              Empowering Mental Wellness Through Emotional Intelligence Backed By Deep Tech
             </motion.p>
           </div>
         </section>
 
-        {/* Product Sections */}
-        {products.map((product, productIndex) => (
-          <section
-            key={product.id}
-            className="relative z-10 py-24 md:py-32 px-6 md:px-12 lg:px-20"
-          >
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${product.gradient} pointer-events-none`}
-            />
-            <div className="max-w-6xl mx-auto relative">
-              {/* Product Header */}
-              <div
-                className={`grid grid-cols-1 md:grid-cols-2 gap-16 items-center ${
-                  productIndex % 2 === 1 ? "md:direction-rtl" : ""
-                }`}
-              >
+        {/* ── What We Are ── */}
+        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-start">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground border border-border px-4 py-1.5 rounded-full">
+                What We Are
+              </span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <p className="text-lg md:text-xl leading-relaxed text-foreground/90 mb-6">
+                Mental Wellness System is an AI-powered mental wellness companion that provides instant, affordable, and stigma-free emotional support to anyone who needs it — anytime, anywhere.
+              </p>
+              <p className="text-base text-muted-foreground leading-relaxed mb-6">
+                We combine real-time facial emotion detection, natural language processing, and generative AI to understand how a person truly feels and respond with genuine empathy — not scripts, not templates, not generic advice.
+              </p>
+              <p className="text-lg font-display text-primary font-medium">
+                We are not a chatbot. We are not a hotline. We are the voice that answers when no one else will.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── The Problem ── */}
+        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-destructive/5 to-transparent">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              className="mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground border border-border px-4 py-1.5 rounded-full">
+                The Problem
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6 mb-4">
+                A system that has <span className="text-primary">fundamentally failed</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-3xl leading-relaxed">
+                Mental health is in crisis — and the system built to address it has failed the people who need it most. This is not a gap in the market. It is a failure of humanity at scale.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {stats.map((stat, i) => (
                 <motion.div
-                  className="md:direction-ltr"
+                  key={stat.label}
+                  className="p-6 rounded-2xl border border-border bg-card/50 text-center"
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i}
                 >
-                  <motion.span
-                    className="inline-block text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4 border border-border px-4 py-1.5 rounded-full"
-                    variants={fadeUp}
-                    custom={0}
-                  >
-                    0{productIndex + 1}
-                  </motion.span>
-                  <motion.h2
-                    className="text-3xl md:text-5xl font-display font-medium tracking-tight mb-4"
-                    variants={fadeUp}
-                    custom={1}
-                  >
-                    {product.name}
-                  </motion.h2>
-                  <motion.p
-                    className="text-lg text-primary font-medium mb-6"
-                    variants={fadeUp}
-                    custom={2}
-                  >
-                    {product.tagline}
-                  </motion.p>
-                  <motion.p
-                    className="text-muted-foreground leading-relaxed text-base md:text-lg mb-8"
-                    variants={fadeUp}
-                    custom={3}
-                  >
-                    {product.description}
-                  </motion.p>
-                  <motion.button
-                    className="group inline-flex items-center gap-2 text-sm tracking-widest uppercase text-foreground hover:text-primary transition-colors duration-300"
-                    variants={fadeUp}
-                    custom={4}
-                  >
-                    Learn more
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </motion.button>
+                  <p className="text-2xl md:text-3xl font-display font-medium text-primary mb-2">
+                    {stat.value}
+                  </p>
+                  <p className="text-sm text-foreground font-medium mb-1">{stat.label}</p>
+                  <p className="text-xs text-muted-foreground">{stat.sub}</p>
                 </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                {/* Product Visual / Mockup */}
+        {/* ── How It Works ── */}
+        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              className="mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground border border-border px-4 py-1.5 rounded-full">
+                How It Works
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6 mb-4">
+                Multimodal AI pipeline
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl">
+                The entire pipeline runs in under 2 seconds. Voice & text input. Tamil & English. 24/7.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {pipeline.map((step, i) => (
                 <motion.div
-                  className="md:direction-ltr"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+                  key={step.step}
+                  className="group relative p-8 rounded-2xl border border-border bg-card/30 hover:bg-card hover:shadow-lg transition-all duration-500"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i}
                 >
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-card shadow-lg">
-                    {/* Abstract UI mockup */}
-                    <div className="absolute inset-0 p-6 flex flex-col gap-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-destructive/60" />
-                        <div className="w-3 h-3 rounded-full bg-primary/40" />
-                        <div className="w-3 h-3 rounded-full bg-secondary/40" />
-                        <div className="flex-1" />
-                        <div className="h-2 w-24 rounded-full bg-muted" />
-                      </div>
-                      <div className="flex-1 grid grid-cols-3 gap-3 mt-2">
-                        <div className="col-span-1 space-y-3">
-                          {[...Array(5)].map((_, i) => (
-                            <div
-                              key={i}
-                              className="h-3 rounded-full bg-muted"
-                              style={{ width: `${60 + Math.random() * 40}%` }}
-                            />
-                          ))}
-                        </div>
-                        <div className="col-span-2 rounded-xl bg-muted/50 border border-border p-4 flex flex-col justify-end gap-2">
-                          <div className="flex items-end gap-2 h-full">
-                            {[...Array(8)].map((_, i) => (
-                              <motion.div
-                                key={i}
-                                className={`flex-1 rounded-t-md ${
-                                  productIndex === 0
-                                    ? "bg-primary/60"
-                                    : "bg-secondary/60"
-                                }`}
-                                initial={{ height: 0 }}
-                                whileInView={{
-                                  height: `${30 + Math.random() * 60}%`,
-                                }}
-                                viewport={{ once: true }}
-                                transition={{
-                                  duration: 0.6,
-                                  delay: 0.4 + i * 0.08,
-                                  ease: "easeOut",
-                                }}
-                              />
-                            ))}
-                          </div>
-                          <div className="flex gap-2">
-                            <div className="h-2 w-12 rounded-full bg-muted" />
-                            <div className="h-2 w-8 rounded-full bg-muted" />
-                          </div>
-                        </div>
-                      </div>
+                  <div className="flex items-start gap-5">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                      <step.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground tracking-widest">
+                        STEP {step.step}
+                      </span>
+                      <h3 className="text-lg font-display font-medium mt-1 mb-3 text-foreground">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {step.description}
+                      </p>
                     </div>
                   </div>
                 </motion.div>
-              </div>
-
-              {/* Features Grid */}
-              <motion.div
-                className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
-              >
-                {product.features.map((feature, i) => (
-                  <motion.div
-                    key={feature.title}
-                    className="group p-8 rounded-2xl border border-border bg-card/50 hover:bg-card hover:shadow-lg transition-all duration-500"
-                    variants={fadeUp}
-                    custom={i}
-                  >
-                    <feature.icon className="w-6 h-6 text-primary mb-4 group-hover:scale-110 transition-transform duration-300" />
-                    <h3 className="text-lg font-display font-medium mb-2 text-foreground">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {feature.desc}
-                    </p>
-                  </motion.div>
-                ))}
-              </motion.div>
+              ))}
             </div>
-          </section>
-        ))}
+          </div>
+        </section>
 
-        {/* CTA Section */}
-        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20">
+        {/* ── Who We Serve ── */}
+        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-secondary/5 to-transparent">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-start">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground border border-border px-4 py-1.5 rounded-full">
+                Who We Serve
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6">
+                1.1 billion people
+              </h2>
+              <p className="text-muted-foreground mt-3 text-base leading-relaxed">
+                who need mental health support but cannot access traditional therapy — due to cost, stigma, geography, or time.
+              </p>
+            </motion.div>
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {audiences.map((a, i) => (
+                <motion.div
+                  key={a.label}
+                  className="flex items-center gap-4 p-5 rounded-xl border border-border bg-card/30"
+                  variants={fadeUp}
+                  custom={i}
+                >
+                  <a.icon className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-sm text-foreground">{a.label}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── The Market ── */}
+        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              className="mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground border border-border px-4 py-1.5 rounded-full">
+                The Market
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6">
+                Fastest-growing segment in healthcare
+              </h2>
+            </motion.div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {markets.map((m, i) => (
+                <motion.div
+                  key={m.label}
+                  className="p-6 rounded-2xl border border-border bg-card/50 text-center"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i}
+                >
+                  <m.icon className="w-5 h-5 text-primary mx-auto mb-3" />
+                  <p className="text-xl md:text-2xl font-display font-medium text-foreground mb-1">
+                    {m.value}
+                  </p>
+                  <p className="text-xs text-muted-foreground">{m.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Business Model / Pricing ── */}
+        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-primary/5 to-transparent">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              className="mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground border border-border px-4 py-1.5 rounded-full">
+                Business Model
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6 mb-4">
+                Built to serve every segment
+              </h2>
+              <p className="text-muted-foreground text-base">
+                LTV:CAC ratio of 3:1 · 78% gross margin at scale · Institution licensing from ₹1.2L–8L/year
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {pricing.map((plan, i) => (
+                <motion.div
+                  key={plan.name}
+                  className={`relative p-8 rounded-2xl border transition-all duration-500 ${
+                    plan.highlight
+                      ? "border-primary bg-primary/5 shadow-lg"
+                      : "border-border bg-card/30 hover:bg-card"
+                  }`}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i}
+                >
+                  {plan.highlight && (
+                    <span className="absolute -top-3 left-6 text-[10px] tracking-widest uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
+                      Most popular
+                    </span>
+                  )}
+                  <p className="text-sm text-muted-foreground mb-2">{plan.name}</p>
+                  <p className="text-2xl font-display font-medium text-foreground">
+                    {plan.price}
+                    <span className="text-sm text-muted-foreground font-light">
+                      {plan.period}
+                    </span>
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+                    {plan.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Why Now ── */}
+        <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-start">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground border border-border px-4 py-1.5 rounded-full">
+                Why Now
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6">
+                The right moment
+              </h2>
+            </motion.div>
+            <motion.div
+              className="space-y-8"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {[
+                {
+                  icon: Zap,
+                  title: "AI accuracy crossed the threshold",
+                  desc: "Emotion detection hit 92% accuracy in 2023 — the technology finally works at therapeutic grade.",
+                },
+                {
+                  icon: Heart,
+                  title: "Post-COVID mental health surge",
+                  desc: "India saw a 47% spike in anxiety disorders. Mental health became a mainstream crisis impossible to ignore.",
+                },
+                {
+                  icon: Shield,
+                  title: "Infrastructure is ready",
+                  desc: "850 million smartphone users and ₹5,000 crore government digital health investment create the rails for national-scale delivery.",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  className="flex items-start gap-5"
+                  variants={fadeUp}
+                  custom={i}
+                >
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-display font-medium text-foreground mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+              <p className="text-sm text-muted-foreground italic pt-4 border-t border-border">
+                The problem is 70 years old. The solution became possible 18 months ago.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── Vision CTA ── */}
+        <section className="relative z-10 py-32 px-6 md:px-12 lg:px-20">
           <motion.div
             className="max-w-3xl mx-auto text-center"
             initial={{ opacity: 0, y: 40 }}
@@ -266,15 +490,18 @@ const Products = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mb-6">
-              Ready to elevate your operations?
+            <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight mb-8 leading-[1.2]">
+              A world where mental wellness is not a luxury — but a{" "}
+              <span className="text-primary">right</span>
             </h2>
-            <p className="text-muted-foreground mb-10 text-lg">
-              Get in touch to schedule a demo or explore how A-ZENTRIX products
-              can transform your business.
+            <p className="text-muted-foreground text-lg mb-4 leading-relaxed">
+              Available to every person, in every language, at every hour, at a price anyone can afford.
+            </p>
+            <p className="text-muted-foreground text-base italic mb-12">
+              "Mental wellness shouldn't be a luxury. We're making it a right."
             </p>
             <a
-              href="mailto:contact@a-zentrix.com"
+              href="mailto:contact@azentrix.ai"
               className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full text-sm tracking-widest uppercase hover:opacity-90 transition-opacity duration-300"
             >
               Get in touch
