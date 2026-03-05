@@ -38,6 +38,20 @@ const testimonials = [
     designation: "CFO at Apex Financial",
     src: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?q=80&w=500&auto=format&fit=crop",
   },
+  {
+    quote:
+      "Their innovative approach to problem-solving sets them apart. Every collaboration has exceeded our expectations and delivered measurable results.",
+    name: "Liam Chen",
+    designation: "Product Director at NovaTech",
+    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop",
+  },
+  {
+    quote:
+      "Working with A-ZENTRIX transformed our digital strategy. The team's expertise and dedication made all the difference in achieving our goals.",
+    name: "Amara Osei",
+    designation: "Marketing Lead at BrightPath",
+    src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=500&auto=format&fit=crop",
+  },
 ];
 
 type Testimonial = {
