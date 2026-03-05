@@ -68,39 +68,6 @@ const pipeline = [
   },
 ];
 
-const pricing = [
-  {
-    name: "Free Tier",
-    price: "₹0",
-    period: "forever",
-    description: "5 sessions/month — building habit and driving word-of-mouth.",
-    highlight: false,
-  },
-  {
-    name: "Individual Premium",
-    price: "₹434",
-    period: "/month",
-    description:
-      "Unlimited sessions, emotion history, and full feature access — less than one therapy session.",
-    highlight: true,
-  },
-  {
-    name: "SME Plan",
-    price: "₹12,000",
-    period: "/month",
-    description:
-      "10–200 employees with HR dashboards, anonymous analytics, and team stress monitoring.",
-    highlight: false,
-  },
-  {
-    name: "Enterprise",
-    price: "₹85,000",
-    period: "/month",
-    description:
-      "HRMS integration, custom AI personas, API access, and dedicated account management.",
-    highlight: false,
-  },
-];
 
 const markets = [
   { icon: TrendingUp, value: "₹43.41T", label: "Global Mental Health Market" },
@@ -369,66 +336,6 @@ const Products = () => {
                       {m.value}
                     </p>
                     <p className="text-xs text-muted-foreground">{m.label}</p>
-                  </motion.div>
-                </RippleCard>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Business Model / Pricing ── */}
-        <section className="relative z-10 py-24 px-6 md:px-16 lg:px-24 bg-gradient-to-b from-primary/5 to-transparent">
-          <div className="w-full">
-            <motion.div
-              className="mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground border border-border px-4 py-1.5 rounded-full">
-                Business Model
-              </span>
-              <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6 mb-4">
-                Built to serve every segment
-              </h2>
-              <p className="text-muted-foreground text-base">
-                LTV:CAC ratio of 3:1 · 78% gross margin at scale · Institution licensing from ₹1.2L–8L/year
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {pricing.map((plan, i) => (
-                <RippleCard
-                  className={`relative p-8 rounded-2xl border transition-all duration-500 ${
-                    plan.highlight
-                      ? "border-primary bg-primary/5 shadow-lg"
-                      : "border-border bg-card/30 hover:bg-card"
-                  }`}
-                >
-                  <motion.div
-                    key={plan.name}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                    custom={i}
-                  >
-                    {plan.highlight && (
-                      <span className="absolute -top-3 left-6 text-[10px] tracking-widest uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
-                        Most popular
-                      </span>
-                    )}
-                    <p className="text-sm text-muted-foreground mb-2">{plan.name}</p>
-                    <p className="text-2xl font-display font-medium text-foreground">
-                      {plan.price}
-                      <span className="text-sm text-muted-foreground font-light">
-                        {plan.period}
-                      </span>
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
-                      {plan.description}
-                    </p>
                   </motion.div>
                 </RippleCard>
               ))}
