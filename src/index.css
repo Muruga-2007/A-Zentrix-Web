@@ -82,29 +82,33 @@
   }
 
   html {
+    height: 100%;
     scroll-behavior: smooth;
     overflow-x: hidden;
+    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: hsl(0 0% 30%) transparent;
   }
 
-  ::-webkit-scrollbar {
+  html::-webkit-scrollbar {
     width: 6px;
   }
-  ::-webkit-scrollbar-track {
+  html::-webkit-scrollbar-track {
     background: transparent;
   }
-  ::-webkit-scrollbar-thumb {
+  html::-webkit-scrollbar-thumb {
     background: hsl(0 0% 30%);
     border-radius: 3px;
   }
-  ::-webkit-scrollbar-thumb:hover {
+  html::-webkit-scrollbar-thumb:hover {
     background: hsl(0 53% 43%);
   }
 
   body {
     @apply bg-background text-foreground font-body;
-    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
   }
 
   /* Smooth transitions on all interactive elements */
