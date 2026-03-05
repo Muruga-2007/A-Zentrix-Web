@@ -92,8 +92,7 @@
   html {
     height: 100%;
     scroll-behavior: smooth;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -105,20 +104,20 @@
   }
 
   body {
-    min-height: 100%;
+    height: 100%;
     margin: 0;
     @apply bg-background text-foreground font-body;
     overflow: hidden;
   }
 
   #root {
+    height: 100%;
     min-height: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
-  /* Allow explicitly scrollable containers to opt in */
   [data-allow-scroll] {
-    overflow-y: auto !important;
+    overflow: hidden !important;
   }
 
   /* Smooth transitions on all interactive elements */
