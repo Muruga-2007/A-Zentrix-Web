@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Brain,
@@ -82,6 +83,98 @@ const audiences = [
   { icon: Globe, label: "Rural communities with no clinic access" },
   { icon: Heart, label: "Anyone who needs someone at 3am" },
 ];
+
+const WishlistCTA = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [count, setCount] = useState(856);
+  const [joined, setJoined] = useState(false);
+
+  return (
+    <>
+      <button
+        onClick={() => setShowPopup(true)}
+        className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full text-sm tracking-widest uppercase hover:opacity-90 transition-opacity duration-300"
+      >
+        Get in touch
+        <ArrowRight className="w-4 h-4" />
+      </button>
+
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            className="fixed inset-0 z-[200] flex items-center justify-center px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
+              onClick={() => setShowPopup(false)}
+            />
+
+            {/* Modal */}
+            <motion.div
+              className="relative bg-card border border-border rounded-2xl p-8 md:p-10 max-w-md w-full shadow-2xl text-center z-10"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            >
+              <button
+                onClick={() => setShowPopup(false)}
+                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground text-lg"
+              >
+                ✕
+              </button>
+
+              <div className="mb-6">
+                <span className="inline-block w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Heart className="w-6 h-6 text-primary" />
+                </span>
+                <h3 className="text-2xl font-display font-medium text-foreground mb-2">
+                  Join the Waitlist
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Be among the first to experience the Mental Wellness System.
+                </p>
+              </div>
+
+              <div className="bg-muted rounded-xl py-4 px-6 mb-6">
+                <p className="text-3xl font-display font-semibold text-foreground">
+                  {count.toLocaleString()}
+                </p>
+                <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mt-1">
+                  People on the waitlist
+                </p>
+              </div>
+
+              {!joined ? (
+                <button
+                  onClick={() => {
+                    setJoined(true);
+                    setCount((prev) => prev - 1);
+                  }}
+                  className="w-full py-4 bg-primary text-primary-foreground rounded-full text-sm tracking-widest uppercase font-medium hover:opacity-90 transition-opacity duration-300"
+                >
+                  Join Waitlist
+                </button>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="py-4 text-primary font-display font-medium tracking-wide"
+                >
+                  🎉 You're on the list!
+                </motion.div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 const Products = () => {
   return (
@@ -425,13 +518,7 @@ const Products = () => {
             <p className="text-muted-foreground text-base italic mb-12">
               "Mental wellness shouldn't be a luxury. We're making it a right."
             </p>
-            <a
-              href="mailto:contact@azentrix.ai"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full text-sm tracking-widest uppercase hover:opacity-90 transition-opacity duration-300"
-            >
-              Get in touch
-              <ArrowRight className="w-4 h-4" />
-            </a>
+            <WishlistCTA />
           </motion.div>
         </section>
 
