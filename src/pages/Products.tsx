@@ -88,7 +88,15 @@ import emailjs from "@emailjs/browser";
 
 const WishlistCTA = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const [count, setCount] = useState(856);
+  const [count, setCount] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem("zentrix_count");
+      // Use saved count if exists, otherwise start at 856 as base
+      return saved ? parseInt(saved, 10) : 856;
+    } catch {
+      return 856;
+    }
+  });
   const [joined, setJoined] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -154,7 +162,12 @@ const WishlistCTA = () => {
       localStorage.setItem("zentrix_leads", JSON.stringify(updatedList));
 
       setJoined(true);
-      setCount((prev) => prev + 1);
+      // Persist the incremented count — never resets
+      setCount((prev) => {
+        const next = prev + 1;
+        localStorage.setItem("zentrix_count", String(next));
+        return next;
+      });
     } catch (err: unknown) {
       const errMsg = err instanceof Error
         ? err.message
