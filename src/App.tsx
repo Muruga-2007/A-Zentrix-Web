@@ -33,8 +33,14 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
-  const [loading, setLoading] = useState(() => window.location.pathname === "/");
-  const handleLoadingComplete = useCallback(() => setLoading(false), []);
+  const [loading, setLoading] = useState(() => {
+    if (window.location.pathname !== "/" || sessionStorage.getItem("loaded")) return false;
+    return true;
+  });
+  const handleLoadingComplete = useCallback(() => {
+    sessionStorage.setItem("loaded", "1");
+    setLoading(false);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
