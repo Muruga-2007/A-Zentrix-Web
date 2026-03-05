@@ -121,7 +121,7 @@ const SandalOverlayContent = ({ opacity }: SandalOverlayContentProps) => {
       <div
         ref={scrollRef}
         className={`w-full mx-auto px-6 md:px-16 lg:px-24 ${isVisible ? "overflow-y-auto" : "overflow-y-hidden"} max-h-screen py-24 relative z-10 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
-        style={{ scrollbarWidth: 'thin', scrollbarColor: 'hsl(0 0% 40%) transparent' }}
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {/* ===== AI SOLUTIONS SECTION ===== */}
         <motion.div
