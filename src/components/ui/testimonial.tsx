@@ -43,48 +43,6 @@ const testimonials = [
     designation: "Research & Development Head at A-ZENTRIX",
     src: niranjaniImg,
   },
-  {
-    quote:
-      "The user interface is incredibly intuitive, which made the onboarding process for my team a breeze. We were up and running in hours, not days.",
-    name: "Marcus Johnson",
-    designation: "Head of Operations at Synergy Corp",
-    src: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=500&auto=format&fit=crop",
-  },
-  {
-    quote:
-      "Customer support is top-notch. They are responsive, knowledgeable, and genuinely invested in our success. It feels like a true partnership.",
-    name: "Isabella Rossi",
-    designation: "Client Success Manager at Horizon",
-    src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=500&auto=format&fit=crop",
-  },
-  {
-    quote:
-      "I'm impressed by the constant stream of updates and new features. The development team is clearly passionate and listens to user feedback.",
-    name: "Kenji Tanaka",
-    designation: "Software Engineer at CodeCrafters",
-    src: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=500&auto=format&fit=crop",
-  },
-  {
-    quote:
-      "The ROI was almost immediate. It streamlined our workflows so effectively that we cut project delivery times by nearly 30%.",
-    name: "Fatima Al-Jamil",
-    designation: "CFO at Apex Financial",
-    src: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?q=80&w=500&auto=format&fit=crop",
-  },
-  {
-    quote:
-      "Their innovative approach to problem-solving sets them apart. Every collaboration has exceeded our expectations and delivered measurable results.",
-    name: "Liam Chen",
-    designation: "Product Director at NovaTech",
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop",
-  },
-  {
-    quote:
-      "Working with A-ZENTRIX transformed our digital strategy. The team's expertise and dedication made all the difference in achieving our goals.",
-    name: "Amara Osei",
-    designation: "Marketing Lead at BrightPath",
-    src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=500&auto=format&fit=crop",
-  },
 ];
 
 type Testimonial = {
