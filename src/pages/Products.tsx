@@ -19,6 +19,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import { pipelineIllustrations } from "@/components/PipelineIllustrations";
+import RippleCard from "@/components/RippleCard";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -208,21 +209,22 @@ const Products = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {stats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  className="p-6 rounded-2xl border border-border bg-card/50 text-center"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  custom={i}
-                >
-                  <p className="text-2xl md:text-3xl font-display font-medium text-primary mb-2">
-                    {stat.value}
-                  </p>
-                  <p className="text-sm text-foreground font-medium mb-1">{stat.label}</p>
-                  <p className="text-xs text-muted-foreground">{stat.sub}</p>
-                </motion.div>
+                <RippleCard className="p-6 rounded-2xl border border-border bg-card/50 text-center">
+                  <motion.div
+                    key={stat.label}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    custom={i}
+                  >
+                    <p className="text-2xl md:text-3xl font-display font-medium text-primary mb-2">
+                      {stat.value}
+                    </p>
+                    <p className="text-sm text-foreground font-medium mb-1">{stat.label}</p>
+                    <p className="text-xs text-muted-foreground">{stat.sub}</p>
+                  </motion.div>
+                </RippleCard>
               ))}
             </div>
           </div>
@@ -253,40 +255,38 @@ const Products = () => {
               {pipeline.map((step, i) => {
                 const Illustration = pipelineIllustrations[i];
                 return (
-                  <motion.div
-                    key={step.step}
-                    className="group relative p-8 rounded-2xl border border-border bg-card/30 hover:bg-card hover:shadow-lg transition-all duration-500"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                    custom={i}
-                  >
-                    <div className="flex flex-col gap-6">
-                      {/* Animated illustration */}
-                      <div className="relative h-36 w-full rounded-xl bg-muted/30 border border-border/50 overflow-hidden">
-                        {Illustration && <Illustration />}
-                      </div>
-
-                      {/* Text content */}
-                      <div className="flex items-start gap-5">
-                        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                          <step.icon className="w-5 h-5 text-primary" />
+                  <RippleCard className="group relative p-8 rounded-2xl border border-border bg-card/30 hover:bg-card hover:shadow-lg transition-all duration-500">
+                    <motion.div
+                      key={step.step}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={fadeUp}
+                      custom={i}
+                    >
+                      <div className="flex flex-col gap-6">
+                        <div className="relative h-36 w-full rounded-xl bg-muted/30 border border-border/50 overflow-hidden">
+                          {Illustration && <Illustration />}
                         </div>
-                        <div>
-                          <span className="text-xs text-muted-foreground tracking-widest">
-                            STEP {step.step}
-                          </span>
-                          <h3 className="text-lg font-display font-medium mt-1 mb-3 text-foreground">
-                            {step.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {step.description}
-                          </p>
+                        <div className="flex items-start gap-5">
+                          <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                            <step.icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <div>
+                            <span className="text-xs text-muted-foreground tracking-widest">
+                              STEP {step.step}
+                            </span>
+                            <h3 className="text-lg font-display font-medium mt-1 mb-3 text-foreground">
+                              {step.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {step.description}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </RippleCard>
                 );
               })}
             </div>
@@ -319,15 +319,17 @@ const Products = () => {
               viewport={{ once: true }}
             >
               {audiences.map((a, i) => (
-                <motion.div
-                  key={a.label}
-                  className="flex items-center gap-4 p-5 rounded-xl border border-border bg-card/30"
-                  variants={fadeUp}
-                  custom={i}
-                >
-                  <a.icon className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-sm text-foreground">{a.label}</span>
-                </motion.div>
+                <RippleCard className="flex items-center gap-4 p-5 rounded-xl border border-border bg-card/30">
+                  <motion.div
+                    key={a.label}
+                    className="flex items-center gap-4"
+                    variants={fadeUp}
+                    custom={i}
+                  >
+                    <a.icon className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-sm text-foreground">{a.label}</span>
+                  </motion.div>
+                </RippleCard>
               ))}
             </motion.div>
           </div>
@@ -353,21 +355,22 @@ const Products = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {markets.map((m, i) => (
-                <motion.div
-                  key={m.label}
-                  className="p-6 rounded-2xl border border-border bg-card/50 text-center"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  custom={i}
-                >
-                  <m.icon className="w-5 h-5 text-primary mx-auto mb-3" />
-                  <p className="text-xl md:text-2xl font-display font-medium text-foreground mb-1">
-                    {m.value}
-                  </p>
-                  <p className="text-xs text-muted-foreground">{m.label}</p>
-                </motion.div>
+                <RippleCard className="p-6 rounded-2xl border border-border bg-card/50 text-center">
+                  <motion.div
+                    key={m.label}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    custom={i}
+                  >
+                    <m.icon className="w-5 h-5 text-primary mx-auto mb-3" />
+                    <p className="text-xl md:text-2xl font-display font-medium text-foreground mb-1">
+                      {m.value}
+                    </p>
+                    <p className="text-xs text-muted-foreground">{m.label}</p>
+                  </motion.div>
+                </RippleCard>
               ))}
             </div>
           </div>
@@ -396,35 +399,38 @@ const Products = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {pricing.map((plan, i) => (
-                <motion.div
-                  key={plan.name}
+                <RippleCard
                   className={`relative p-8 rounded-2xl border transition-all duration-500 ${
                     plan.highlight
                       ? "border-primary bg-primary/5 shadow-lg"
                       : "border-border bg-card/30 hover:bg-card"
                   }`}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  custom={i}
                 >
-                  {plan.highlight && (
-                    <span className="absolute -top-3 left-6 text-[10px] tracking-widest uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
-                      Most popular
-                    </span>
-                  )}
-                  <p className="text-sm text-muted-foreground mb-2">{plan.name}</p>
-                  <p className="text-2xl font-display font-medium text-foreground">
-                    {plan.price}
-                    <span className="text-sm text-muted-foreground font-light">
-                      {plan.period}
-                    </span>
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
-                    {plan.description}
-                  </p>
-                </motion.div>
+                  <motion.div
+                    key={plan.name}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    custom={i}
+                  >
+                    {plan.highlight && (
+                      <span className="absolute -top-3 left-6 text-[10px] tracking-widest uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
+                        Most popular
+                      </span>
+                    )}
+                    <p className="text-sm text-muted-foreground mb-2">{plan.name}</p>
+                    <p className="text-2xl font-display font-medium text-foreground">
+                      {plan.price}
+                      <span className="text-sm text-muted-foreground font-light">
+                        {plan.period}
+                      </span>
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
+                      {plan.description}
+                    </p>
+                  </motion.div>
+                </RippleCard>
               ))}
             </div>
           </div>
