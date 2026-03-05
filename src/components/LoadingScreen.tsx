@@ -13,25 +13,20 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
   // Realistic progress: fast start, pause around 40-60%, then finish
   useEffect(() => {
-    const duration = 2400;
+    const duration = 1200;
     const tick = () => {
       const elapsed = Date.now() - startRef.current;
       const t = Math.min(elapsed / duration, 1);
-      // Piecewise easing to simulate realistic loading with a stall
       let mapped: number;
       if (t < 0.3) {
-        // Quick ramp to ~35%
         mapped = (t / 0.3) * 0.35;
       } else if (t < 0.6) {
-        // Slow crawl from 35% to 55% (the "stall")
         const sub = (t - 0.3) / 0.3;
         mapped = 0.35 + sub * 0.2;
       } else if (t < 0.85) {
-        // Pick up speed from 55% to 90%
         const sub = (t - 0.6) / 0.25;
         mapped = 0.55 + sub * 0.35;
       } else {
-        // Final sprint 90% to 100%
         const sub = (t - 0.85) / 0.15;
         const eased = 1 - Math.pow(1 - sub, 2);
         mapped = 0.9 + eased * 0.1;
@@ -44,9 +39,9 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   }, []);
 
   useEffect(() => {
-    const holdTimer = setTimeout(() => setPhase("hold"), 500);
-    const exitTimer = setTimeout(() => setPhase("exit"), 2500);
-    const doneTimer = setTimeout(() => onComplete(), 3300);
+    const holdTimer = setTimeout(() => setPhase("hold"), 200);
+    const exitTimer = setTimeout(() => setPhase("exit"), 1300);
+    const doneTimer = setTimeout(() => onComplete(), 1800);
     return () => {
       clearTimeout(holdTimer);
       clearTimeout(exitTimer);
@@ -134,14 +129,14 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
               className="absolute inset-0 bg-foreground origin-left z-10"
               initial={{ scaleX: 1 }}
               animate={{ scaleX: 0 }}
-              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0 }}
+              transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
               style={{ transformOrigin: "right" }}
             />
             <motion.div
               className="absolute inset-0 bg-foreground origin-right z-10"
               initial={{ scaleX: 1 }}
               animate={{ scaleX: 0 }}
-              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0 }}
+              transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
               style={{ transformOrigin: "left" }}
             />
           </>
