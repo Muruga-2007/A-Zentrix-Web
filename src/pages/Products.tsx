@@ -124,8 +124,8 @@ const Products = () => {
         <Navbar />
 
         {/* ── Hero ── */}
-        <section className="relative z-10 pt-36 pb-24 px-6 md:px-12 lg:px-20">
-          <div className="max-w-5xl mx-auto text-center">
+        <section className="relative z-10 pt-36 pb-24 px-6 md:px-12 lg:px-20 min-h-[70vh] flex items-center justify-center">
+          <div className="max-w-7xl mx-auto text-center w-full">
             <motion.p
               className="text-xs tracking-[0.4em] uppercase text-muted-foreground mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -144,7 +144,7 @@ const Products = () => {
               <span className="text-primary">System</span>
             </motion.h1>
             <motion.p
-              className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed italic"
+              className="text-base md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed italic"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -156,7 +156,7 @@ const Products = () => {
 
         {/* ── What We Are ── */}
         <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-start">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -188,7 +188,7 @@ const Products = () => {
 
         {/* ── The Problem ── */}
         <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-destructive/5 to-transparent">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <motion.div
               className="mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -202,7 +202,7 @@ const Products = () => {
               <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6 mb-4">
                 A system that has <span className="text-primary">fundamentally failed</span>
               </h2>
-              <p className="text-muted-foreground text-lg max-w-3xl leading-relaxed">
+              <p className="text-muted-foreground text-lg max-w-4xl leading-relaxed">
                 Mental health is in crisis — and the system built to address it has failed the people who need it most. This is not a gap in the market. It is a failure of humanity at scale.
               </p>
             </motion.div>
@@ -232,7 +232,7 @@ const Products = () => {
 
         {/* ── How It Works ── */}
         <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <motion.div
               className="mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -246,7 +246,7 @@ const Products = () => {
               <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight mt-6 mb-4">
                 Multimodal AI pipeline
               </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl">
+              <p className="text-muted-foreground text-lg max-w-3xl">
                 The entire pipeline runs in under 2 seconds. Voice & text input. Tamil & English. 24/7.
               </p>
             </motion.div>
@@ -295,7 +295,7 @@ const Products = () => {
 
         {/* ── Who We Serve ── */}
         <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-secondary/5 to-transparent">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-start">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -337,7 +337,7 @@ const Products = () => {
 
         {/* ── The Market ── */}
         <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <motion.div
               className="mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -378,7 +378,7 @@ const Products = () => {
 
         {/* ── Business Model / Pricing ── */}
         <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-primary/5 to-transparent">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <motion.div
               className="mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -438,7 +438,7 @@ const Products = () => {
 
         {/* ── Why Now ── */}
         <section className="relative z-10 py-24 px-6 md:px-12 lg:px-20 border-t border-border">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-start">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -502,7 +502,7 @@ const Products = () => {
         {/* ── Vision CTA ── */}
         <section className="relative z-10 py-32 px-6 md:px-12 lg:px-20">
           <motion.div
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-4xl mx-auto text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
